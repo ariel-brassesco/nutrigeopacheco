@@ -1,0 +1,1 @@
+web: gunicorn nutrigeopacheco.wsgi --log-file -
