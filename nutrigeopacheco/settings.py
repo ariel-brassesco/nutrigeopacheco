@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']#['0.0.0.0','127.0.0.1', 'nutrigeopacheco.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1', '0.0.0.0', 'nutrigeopacheco.herokuapp.com']
 
 
 # Application definition
@@ -43,13 +43,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'nutrigeopacheco.urls'
@@ -72,7 +72,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'nutrigeopacheco.wsgi.application'
 
-
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -128,7 +129,7 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # EMAIL SETTINGS
 EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER')
