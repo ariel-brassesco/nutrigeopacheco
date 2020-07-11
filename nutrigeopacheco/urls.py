@@ -18,8 +18,9 @@ from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('', include('nutri.urls')),
-    #path('admin/', admin.site.urls),
+    path('', include('frontend.urls')),
+    path('nutri/', include('nutri.urls')),
+    path('admin/', admin.site.urls),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
