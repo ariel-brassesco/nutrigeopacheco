@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1', '0.0.0.0', 'nutrigeopacheco.herokuapp.
 
 INSTALLED_APPS = [
     'nutri.apps.NutriConfig',
+    'frontend.apps.Frontend',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
