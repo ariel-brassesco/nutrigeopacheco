@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
+from .settings import MEDIA_ROOT, MEDIA_URL
+
 
 urlpatterns = [
-    path('', include('frontend.urls')),
-    path('nutri/', include('nutri.urls')),
+    path('', include('nutri.urls')),
+    path('tienda/', include('frontend.urls')),
     path('admin/', admin.site.urls),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -133,21 +134,42 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
+# Media files for FileFields and ImageFields
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+
+
 # EMAIL SETTINGS
-EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER')
-EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN')
-EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD')
-EMAIL_PORT = os.getenv('MAILGUN_SMTP_PORT')
-EMAIL_USE_TLS = True
+
+#EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER')
+#EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN')
+#EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD')
+#EMAIL_PORT = os.getenv('MAILGUN_SMTP_PORT')
+#EMAIL_USE_TLS = True
 EMAIL_SENDER = 'consulta@nutrigeopacheco.com'
-MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_API_KEY')
-MAILGUN_SERVER_NAME = os.getenv('MAILGUN_DOMAIN')
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+#MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_API_KEY')
+#MAILGUN_SERVER_NAME = os.getenv('MAILGUN_DOMAIN')
+#EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 # OWNER DATA
 EMAIL_OWNER = 'lic.pachecogeorgina@gmail.com'
 TEL_OWNER = '+541135220054'
 INSTAGRAM_OWNER = 'https://www.instagram.com/nutrigeopacheco'
 WHATSAPP_OWNER = 'https://wa.me/541135220054'
+
+# Global settings for Django REST Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
+}
