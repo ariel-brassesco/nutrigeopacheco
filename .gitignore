@@ -1,7 +1,6 @@
 **/__pycache__
 .env
 *.json
-*.sqlite3
 !package.json
 !package-lock.json
 
