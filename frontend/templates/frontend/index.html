@@ -1,0 +1,39 @@
+{% extends "nutri/base.html" %}
+
+{% load static %}
+{% load nutri_tags %}
+
+{% block page_title%}
+    <title>Tienda - NutriGeoPacheco</title>
+{% endblock %}
+
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'nutri/css/footer.css' %}">  
+  <link rel="stylesheet" type="text/css" href="{% static 'nutri/css/header.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/loaders.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/mainpage.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/shipping_info.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/cart.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/filters.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/showcase.css' %}">
+{% endblock %}
+
+{%block body %}
+  <header>
+      {% header OWNER %}
+  </header>
+  
+  <div id="app">
+      <!-- React will load here -->
+  </div>
+
+  <footer>
+    {% footer_social_network OWNER %}
+  </footer>
+{% endblock %}
+{% block javascript %}
+  <script src="{% static 'nutri/js/header.js'%}"></script>
+  <script src="{% static 'frontend/js/header_events.js'%}"></script>
+  <script src="{% static 'frontend/js/main.js'%}"></script>
+{% endblock %}

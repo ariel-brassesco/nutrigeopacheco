@@ -1,0 +1,18 @@
+{% extends 'nutri/base.html'%}
+
+{% load static %}
+
+{% block css %}        
+  <link rel="stylesheet" type="text/css" href="{% static 'payment/css/checkout.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class='loader-checkout'>
+  <img src="{% static 'images/fruit-gif-loader.gif' %}" alt="Loading ...">
+  <p class='loader-checkout-content'>Te estamos enviando a Mercado Pago para que realices tu compra...</p>
+</div>
+
+<a id="checkout" href="{{url}}" name="MP-Checkout" class="blue-l-arall-rn"></a>
+<script type="text/javascript" src="//resources.mlstatic.com/mptools/render.js"></script>
+<script ype="text/javascript" src="{% static 'payment/js/payment.js'%}"></script>
+{% endblock %}

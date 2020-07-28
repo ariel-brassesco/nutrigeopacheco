@@ -87,6 +87,9 @@ function loadEvents() {
         if (elem.nodeName == 'BUTTON' && elem.classList.contains('delete')) {
             elem.parentNode.classList.replace('appearce', 'inactive');
         }
+
+        const menu = document.querySelector('.header-menu');
+        showMenuMobile(elem, menu);
     }, false);
 }
 

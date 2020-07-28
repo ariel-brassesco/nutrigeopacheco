@@ -1,0 +1,55 @@
+{% extends 'nutri/base.html'%}
+
+{% load static %}
+{% load nutri_tags %}
+{% load payment_tags %}
+
+{% block page_title%}
+    <title>Compras - NutriGeoPacheco</title>
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'nutri/css/footer.css' %}">  
+  <link rel="stylesheet" type="text/css" href="{% static 'nutri/css/header.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'payment/css/index.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/shipping_info.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/cart.css' %}">
+{% endblock %}
+
+{%block body %}
+    <header>
+        {% header OWNER %}
+    </header>
+
+    <div class='payment-page'>
+        <div class='payment-form'>
+            {% payment_form cart_id %}
+        </div>
+        <div class='payment-items'>
+            {% for item in items %}
+                {% show_item item %}
+            {% endfor %}
+            <div class='cart-footer'>
+                <p>Total: </p><p>$ {{items|total_purchase|floatformat:2}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class='banner-info-item banner-info-shipping'>
+        <span class="icon banner-shipping-icon">
+            <i class="fas fa-2x fa-truck"></i>
+        </span>
+        <div class='banner-shipping-content'>
+            <p class='banner-shipping-title'>ENVÍOS GRATIS A SANTA FE Y ALREDEDORES</p>
+            <p class='banner-shipping-additional'>Consulta por costo de envío al resto del país.</p>
+        </div>
+    </div>
+    
+    <footer>
+    {% footer_social_network OWNER %}
+    </footer>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'nutri/js/header.js'%}"></script>
+    <script src="{% static 'frontend/js/header_events.js'%}"></script>
+{% endblock %}

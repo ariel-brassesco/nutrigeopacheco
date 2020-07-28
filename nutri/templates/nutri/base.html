@@ -10,8 +10,8 @@
         <!-- Title of page -->
         {% block page_title%}
         {% endblock %}
-        <link rel="shortcut icon" href="{%static 'images/logo.ico' %}" type="image/x-icon">
-
+        {%comment%}<link rel="shortcut icon" href="{%static 'images/logo.ico' %}" type="image/x-icon">{%endcomment%}
+        <link rel="shortcut icon" href={{OWNER.logo.url}} type="image/x-icon">
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Chewy&family=Dancing+Script:wght@700&family=Josefin+Sans:wght@200;300;400;500;700&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Roboto:ital,wght@0,300;0,400;0,900;1,300;1,400;1,900&display=swap" rel="stylesheet"> 
         

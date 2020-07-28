@@ -1,22 +1,21 @@
 from django import template
-from nutrigeopacheco.settings import EMAIL_OWNER, TEL_OWNER, INSTAGRAM_OWNER, WHATSAPP_OWNER
-
 
 register = template.Library()
 
 @register.inclusion_tag('nutri/components/header.html')
-def header():
-    context = {}
-    return context
+def header(owner):
+    return {'logo': owner.logo.url}
 
 
 @register.inclusion_tag('nutri/components/footer.html')
-def footer_social_network():
+def footer_social_network(owner):
     context = {
-        'instagram_link': INSTAGRAM_OWNER,
-        'whatsapp_link': WHATSAPP_OWNER,
-        'cel_phone': TEL_OWNER,
-        'email': EMAIL_OWNER,
+        'instagram_link': owner.instagram,
+        'whatsapp_link': owner.whatsapp,
+        'cel_phone': owner.phone_number,
+        'email': owner.email,
+        'name': owner.name,
+        'surname': owner.surname
     }
     return context
 

@@ -1,0 +1,33 @@
+{% load payment_tags %}
+
+<h1>Hola {{user.name}},</h1>
+
+{% if payment_method == "transferencia" %}
+<p>Te pasamos los datos de la cuenta para que realices la transferencia:</p>
+<ul>
+    <li>Banco: {{OWNER.banco|upper}}</li>
+    <li>Cuenta: {{OWNER.cuenta}}</li>
+    <li>Alias: {{OWNER.alias_CBU}}</li>
+    <li>CBU: {{OWNER.cbu}}</li>
+    <li>CUIL: {{OWNER.cuil}}</li>
+</ul>
+
+<h4>IMPORTANTE: ENVIA EL COMPROBANTE DE LA TRANSFERENCIA AL EMAIL {{OWNER.email}}</h4>
+{% endif %}
+
+<p>Te enviamos el detalle de tu compra: </p>
+{% for item in items %}
+    {% show_item item %}
+{% endfor %}
+<p><strong>Total: $ {{items|total_purchase|floatformat:2}}</strong></p>
+
+<p><u>Dirección de envío:</u> {{user.street}} {{user.number}} {{user.depto}}
+    ({{user.city}}, {{user.province}}, {{user.country}}) </p>
+<p>Observaciones: {{user.comment}}</p>
+
+{% if payment_method == "efectivo" %}
+<p><strong>EL TOTAL DE LA COMPRA SE DEBE ABONAR EN LA ENTREGA.</strong></p>
+{% endif %}
+
+<h4>Muchas gracias por tu comprar!</h4>
+<img src={{OWNER.logo.url}}>
