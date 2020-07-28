@@ -1,8 +1,55 @@
 from django.db import models
 import uuid
 from datetime import datetime
+from django.utils.text import slugify
+from gdstorage.storage import GoogleDriveStorage
+
+# Define Google Drive Storage
+gd_storage = GoogleDriveStorage()
 
 # Create your models here.
+class Promotion(models.Model):
+    PROMO_TARGET = [
+        ('product', 'product'),
+        ('category', 'category'),
+        ('shipping', 'shipping'),
+        ('all', 'all'),
+    ]
+
+    PROMO_TYPES = [
+        ('percent', 'percent'),
+        ('nxm', 'nxm'),
+        ('free', 'free'),
+        ('code', 'code'),
+    ]
+    
+    target = models.CharField(choices=PROMO_TARGET, max_length=20)
+    _type = models.CharField(choices=PROMO_TYPES, max_length=20)
+    code = models.CharField(max_length=20)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.target} ({self._type}): {self.code} ({self.is_active})'
+
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    is_active = models.BooleanField(default=True)
+    message = models.CharField(max_length=200, default='', blank=True)
+    orden = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.name.capitalize()
+    
+    def slug(self):
+        return slugify(self.name)
+
+    def save(self, *args, **kwargs):
+        '''
+            Save the name of category in lowercase.
+        '''
+        self.name = self.name.lower()
+        super(Category, self).save(*args, **kwargs)
+
 class Product(models.Model):
     '''
         A model for products.
@@ -18,10 +65,28 @@ class Product(models.Model):
     title = models.CharField('Product', max_length=150)
     description = models.TextField('Description', max_length=400, blank=True)
     stock = models.PositiveSmallIntegerField(default=0)
+    available_stock = models.PositiveSmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)
     new_enabled = models.BooleanField(default=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    promotions = models.ManyToManyField(Promotion, related_name='products', blank=True)
+
+    def check_available_stock(self, quantity):
+        return (self.available_stock > 0) and (self.available_stock >= quantity)
+
+    def set_available_stock(self, quantity):
+        self.available_stock -= quantity
+        self.save()
+
+    def update_stock(self):
+        self.stock = self.available_stock
+        self.save()
+
+    def release_stock(self):
+        self.available_stock = self.stock
+        self.save()
 
     def __str__(self):
         return f"{self.title}: {self.price}"
@@ -39,8 +104,12 @@ class Product(models.Model):
         # Return True if the product is new and new_enable is True, otherwise False.
         return (dt.total_seconds() <= TIME_TO_BE_NEW) if self.new_enabled else False
 
-    def available_stock(self):
+    def has_stock(self):
         return self.stock > 0
+
+    def slug(self):
+        return slugify(self.title)
+
 class ProductImages(models.Model):
 
     '''
@@ -59,7 +128,7 @@ class ProductImages(models.Model):
     '''
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to="products/")
+    image = models.ImageField(upload_to="products/", storage=gd_storage)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -75,12 +144,23 @@ class ProductImages(models.Model):
         self.image.name = '/'.join([str(self.product.id), str(uuid.uuid4().hex + extension)])
         super(ProductImages, self).save(*args, **kwargs)
 
-#if request.method == 'POST':
-#...
-#...
-#    for file in request.FILES.getlist('images'):
-#        instance = Image(
-#            condo=Condo.objects.get(your_parent_objects_id),
-#            image=file
-#        )
-#        instance.save()
+class Place(models.Model):
+    name = models.CharField(max_length=30)
+    surname = models.CharField(max_length=30)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=25)
+    logo = models.ImageField(upload_to='owner/%Y/%m/%d', storage=gd_storage)
+    instagram = models.URLField()
+    whatsapp = models.URLField()
+    cbu = models.CharField(max_length=30)
+    alias_CBU = models.CharField(max_length=50)
+    cuil = models.CharField(max_length=11)
+    cuenta = models.CharField(max_length=50)
+    banco = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    def get_phone(self):
+        return f'+{self.phone_number}'
+

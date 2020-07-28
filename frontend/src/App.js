@@ -1,23 +1,21 @@
 import React, { Component } from "react";
-import {Switch, HashRouter, Route} from 'react-router-dom';
-import {NavBar} from './components/Navigation';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import MainPage from "./pages/MainPage";
-//import {DetailPage} from "./pages/DetailPage";
 
-
+export const URL_API_PRODUCTS = location.origin + '/api/products';
+export const URL_API_CATEGORIES = location.origin + '/api/category';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <HashRouter>
+      <BrowserRouter basename='/tienda'>
         <Switch>
           <Route exact path='/' component={MainPage} />
-          {/*<Route path='/detail' component={DetailPage} />*/}
+          <Route exact path='/:category' component={MainPage} />
+          <Route exact path='/:category/:product' component={MainPage} />
           {/*<Route component={NotFound}/>*/}
         </Switch>
-        </HashRouter>
-      </div>
+      </BrowserRouter>
     );
   }
 }

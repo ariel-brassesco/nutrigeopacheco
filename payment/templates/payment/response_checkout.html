@@ -1,0 +1,49 @@
+{% extends 'nutri/base.html'%}
+
+{% load static %}
+
+{% block css %}        
+  <link rel="stylesheet" type="text/css" href="{% static 'payment/css/checkout.css' %}">
+{% endblock %}
+
+{% block body %}
+
+{% if success %}
+    <div id="success-checkout" class='inactive response-checkout'>
+        <img class="response-checkout-image" src="{% static 'images/success_check_image.png' %}">
+        {%if payment == 'efectivo' %}
+            <p class="response-checkout-content">Tu orden fue procesada con exito!</p>
+        {%elif payment == 'transferencia' %}
+            <p class="response-checkout-content">Tu orden fue procesada con exito!</p>
+            <p class="response-checkout-content">Te enviamos los datos por email. 
+                No te olvides de revisar tu casilla de SPAM.</p>
+        {% else %}
+            <p class="response-checkout-content">El pago se ha realizado con exito!</p>
+        {% endif %}
+        <p class="response-checkout-content">Muchas gracias por tu compra!</p>
+    </div>
+{% else %}
+    <div id="failure-checkout" class='inactive response-checkout'>
+        <img class="response-checkout-image" src="{% static 'images/failure_check_image.png' %}">
+        {% if stock %}
+            <p class="response-checkout-content">Algo salio mal. Intentalo de nuevo mas tarde.</p>
+        {% else %}
+            <p class="response-checkout-content">
+                Lo sentimos, alguien se te adelanto!!
+                <br>
+                No tenemos stock disponible de todos o alguno de 
+                los productos que elegiste.
+                <br>
+                Consultanos para saber cuando van a estar disponibles.
+            </p>
+        {% endif %}
+    </div>
+{% endif %}
+
+<a id="redirect-frontend" href="{% url 'frontend:frontend' %}"></a>
+
+{% endblock %}
+
+{% block javascript %}
+<script ype="text/javascript" src="{% static 'payment/js/response_checkout.js'%}"></script>
+{% endblock%}

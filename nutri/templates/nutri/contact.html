@@ -17,7 +17,7 @@
 
 {%block body %}
     <header>
-        {% header %}
+        {% header OWNER %}
     </header>
     <nav>
 
@@ -26,7 +26,7 @@
         {% contact_form %}
     </main>
     <footer>
-        {% footer_social_network %}
+        {% footer_social_network OWNER %}
     </footer>
 
     <!-- Success and Failed Notifications -->
@@ -48,5 +48,6 @@
 {% endblock %}
 
 {% block javascript %}
+    <script src="{% static 'nutri/js/header.js' %}"></script>
     <script src="{% static 'nutri/js/contact.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,7 @@
+<div class="select">
+    <select name='province'>
+    {% for provincia in provincias %}
+        <option value={{provincia.0}} {%if provincia.0 == default %}selected{%endif%}>{{provincia.1|title}}</option>
+    {% endfor%}
+    </select>
+</div>

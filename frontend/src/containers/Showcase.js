@@ -1,36 +1,52 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Product} from '../components/ProductsView';
-import {fetchProducts} from '../actions/fetchProducts'
+//Import Components
+import {ProductList, ProductDetail} from '../components/Products';
+import {Loader} from '../components/Loaders';
+// Import actions creators
+import fetchGetData from '../actions/fetchData';
+import {showProductDetail} from '../actions/actionsShowcase';
+import {addCartItem} from '../actions/actionsCart';
+import {updateURL} from '../actions/actionsBreadcrumb';
+// Import actions
+import {
+    FETCH_PRODUCTS_PENDING,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_ERROR
+} from '../actions/actionsShowcase';
+import {UPDATE_TYPE_PRODUCT_DETAIL} from '../actions/actionsBreadcrumb';
+// Import getters
+import {
+    getProducts,
+    getProductsError,
+    getProductsPending,
+    getProductDetail,
+    getProductsLoader
+} from '../reducers/productsReducer';
+import {getActiveFilter, getCategories} from '../reducers/filtersReducer';
 
 
 class ProductsView extends Component {
-    static url = location.origin + '/api/products';
 
     componentDidMount(){
         const {pending, fetchProducts} = this.props;
-        console.log(`pendingMounting:${pending}`);
-        console.log(ProductsView.url);
-        if (!pending) {
-            fetchProducts(ProductsView.url);
-        }
+        if (!pending) fetchProducts();
     }
 
     render() {
-        const {products, error, pending} = this.props;
-
-        if(pending) return (<p>Loading...</p>)
+        const {products, error, pending, loader} = this.props;
+        const {detail, showDetail, addCartItem} = this.props;
+        const {filter, categories} = this.props;
         
-        return (
-            <div>
-                {products.map((prod, idx) => {
-                    return <Product
-                        key={idx}
-                        picture={prod.images[0]}
-                        title={prod.title}
-                        price={prod.price}
-                    />
-                })}
+        if (error) return <p>Could not load the products.</p>;
+        
+        return (pending)?(<Loader src={loader.src} className={loader.className} />):(
+            <div className="showcase">
+                {
+                    (Object.keys(detail).length !== 0) // Check the object is not empty
+                    ?<ProductDetail data={detail} goBack={showDetail} addToCart={addCartItem}/>
+                    :<ProductList {...{products, filter, categories, showDetail}} />
+                }
             </div>
         );
     }
@@ -38,14 +54,30 @@ class ProductsView extends Component {
 
 const mapStateToProps = state => {
     return {
-        products: state.showcase.products,
-        pending: state.showcase.pending,
-        error: state.showcase.error,
+        products: getProducts(state),
+        pending: getProductsPending(state),
+        error: getProductsError(state),
+        detail: getProductDetail(state),
+        filter: getActiveFilter(state),
+        loader: getProductsLoader(state),
+        categories: getCategories(state)
     }
 }
 
-const mapDispatchToProps = {
-    fetchProducts
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchProducts: () => fetchGetData(
+            ownProps.url,
+            FETCH_PRODUCTS_PENDING,
+            FETCH_PRODUCTS_SUCCESS,
+            FETCH_PRODUCTS_ERROR
+        )(dispatch),
+        showDetail: (product) => ((dispatch) => {
+            dispatch(showProductDetail(product))
+            dispatch(updateURL(UPDATE_TYPE_PRODUCT_DETAIL, product))
+        })(dispatch),
+        addCartItem: (item) => dispatch(addCartItem(item))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsView);

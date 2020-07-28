@@ -1,5 +1,7 @@
 **/__pycache__
+**/migrations
 .env
+*.json
 *.sqlite3
 /staticfiles
 
