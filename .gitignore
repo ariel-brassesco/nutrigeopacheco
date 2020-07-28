@@ -1,5 +1,4 @@
 **/__pycache__
-**/migrations
 .env
 *.json
 *.sqlite3
