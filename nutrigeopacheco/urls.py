@@ -35,7 +35,7 @@ if DEBUG:
 if LETSENCRYPT_URL:
     from django.http import HttpResponse
     urlpatterns += [
-        url(
+        path(
             LETSENCRYPT_URL,
             lambda r: HttpResponse(LETSENCRYPT_RESPONSE, content_type='text/plain'),
         ),
