@@ -3,7 +3,6 @@
 .env
 *.json
 *.sqlite3
-/staticfiles
 !package.json
 !package-lock.json
 
