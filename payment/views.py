@@ -311,7 +311,8 @@ def send_order_email(**kargs):
             subject,
             content,
             EMAIL_SENDER_COMPRAS,
-            [payer_email, EMAIL_OWNER],
+            [EMAIL_OWNER],
+            #[payer_email, EMAIL_OWNER],
             html_message= content,
             fail_silently=False,
         )
