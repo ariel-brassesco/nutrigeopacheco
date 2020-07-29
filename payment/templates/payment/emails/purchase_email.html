@@ -21,6 +21,10 @@
 {% endfor %}
 <p><strong>Total: $ {{items|total_purchase|floatformat:2}}</strong></p>
 
+
+<h4>Datos del comprador:</h4>
+<p><u>Nombre y Apellido: {{user.name}} {{user.surname}}</u>
+<p><u>Email: {{user.email}}</u>
 <p><u>Dirección de envío:</u> {{user.street}} {{user.number}} {{user.depto}}
     ({{user.city}}, {{user.province}}, {{user.country}}) </p>
 <p>Observaciones: {{user.comment}}</p>
