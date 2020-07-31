@@ -77,13 +77,17 @@ WSGI_APPLICATION = 'nutrigeopacheco.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+import dj_database_url
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default':  dj_database_url.config(conn_max_age=600)
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
 
 
 # Password validation
@@ -129,7 +133,7 @@ MEDIA_URL = "/media/"
 
 # Google Drive Storage Settings
 GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = None
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS = os.getenv('GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS')
+OOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS = os.getenv('GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS')
 GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = 'nutrigropacheco/media'
 
 
@@ -142,7 +146,7 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-# SSL Confiuration
+# SSL Configuration
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -151,6 +155,8 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SESSION_SAVE_EVERY_REQUEST = True # For session dictionary modifications between request
+#LETSENCRYPT_URL = os.environ.get('LETSENCRYPT_URL')
+#LETSENCRYPT_RESPONSE = os.environ.get('LETSENCRYPT_RESPONSE', '')
 
 # EMAIL SETTINGS
 EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER')

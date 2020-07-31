@@ -1,0 +1,52 @@
+:root {
+    --primary-color: palevioletred;
+    --primary-color-8: rgba(216, 112, 147, 0.8);
+
+    --font-title: 'Dancing Script', 'Chewy', cursive;
+    --font-content: 'Josefin Sans', 'Roboto', sans-serif;
+}
+
+body {
+    font-family: var(--font-content);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-title);
+    color: var(--primary-color);
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+
+/* Background fruit image for header and footer with opacity 0.3*/
+.background-fruits--transparent::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: url('../images/fruit-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.3;
+}
+
+/* Class for add and asterics for requiered inputs*/
+.label-input-required::after {
+    content: '*';
+    color: red;
+    font-size: 1em;
+    font-weight: 200;
+}
+
+.inactive {
+    display: none;
+}
