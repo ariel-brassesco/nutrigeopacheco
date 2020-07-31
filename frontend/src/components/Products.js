@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import {NewProductTag, NoStockTag} from './Common';
 
 export const Product = ({prod, show}) => {
     
     const {images, title, price, is_new, new_enabled, has_stock} = prod;
     const picture = images[0];    
-    const newTag = (is_new && new_enabled)?<span className="tag is-success product-tag__new">nuevo</span>:null;
-    const noStock = (!has_stock)?<span className="tag is-danger product-tag__nostock">sin stock</span>:null;
+    const newTag = (is_new && new_enabled)?<NewProductTag />:null;
+    const noStock = (!has_stock)?<NoStockTag />:null;
 
 
     return (
@@ -143,7 +144,7 @@ export class ProductDetail extends Component {
         let noStock;
         
         if (!has_stock) {
-            noStock = <span className="tag is-danger">sin stock</span>;
+            noStock = <NoStockTag />;
         } else {
             noStock = [
                 <QuantityWidget key="quantity"

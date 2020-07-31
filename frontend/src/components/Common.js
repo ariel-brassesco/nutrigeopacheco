@@ -1,5 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+export const NewProductTag = () => {
+    return (
+        <span className="tag is-success product-tag__new">nuevo</span>
+        )
+}
+
+export const NoStockTag = () => {
+    return (
+        <span className="tag is-danger product-tag__nostock">sin stock</span>
+        )
+}
 
 export function WhatsappContact(props){
     return (
