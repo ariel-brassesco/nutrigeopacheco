@@ -142,7 +142,6 @@ export class ProductDetail extends Component {
         const {title, description, price, images, has_stock} = this.props.data;
         const {quantity} = this.state;
         let noStock;
-        
         if (!has_stock) {
             noStock = <NoStockTag />;
         } else {
@@ -166,7 +165,11 @@ export class ProductDetail extends Component {
                 <ImagesShower images={images}/>
                 <div className='product-detail-info'>
                     <h2 className='product-detail-title'>{title}</h2>
-                    <p className='product-detail-description'>{description}</p>
+                    <div className='product-detail-description'>
+                        {description.split('\n').map((line, idx) => {
+                            return <p key={idx}>{line}</p>
+                        })} {/*Split the description by \n and put in a different <p> */}
+                    </div>
                     <p className='product-detail-price'>$ {price}</p>
                     <hr/>
                     {noStock}

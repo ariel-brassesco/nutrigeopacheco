@@ -9,7 +9,7 @@ from nutrigeopacheco.settings import EMAIL_SENDER_CONSULTA, EMAIL_OWNER
 # Create your views here.
 
 def index(request):
-    return HttpResponseRedirect(reverse("nutri:contact"))
+    return render(request, 'nutri/index.html')
 
 def contact(request):
     if request.method == 'POST':

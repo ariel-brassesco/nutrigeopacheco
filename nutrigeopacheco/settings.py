@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['nutrigeopacheco.herokuapp.com','127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['nutrigeopacheco.herokuapp.com','nutrigeopacheco.com','127.0.0.1', '0.0.0.0']
 
 # Application definition
 INSTALLED_APPS = [
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
-    'sslserver', #Only for development
+    #'sslserver', #Only for development
     'gdstorage'
 ]
 
@@ -88,7 +88,6 @@ DATABASES = {
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
 #}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -160,20 +159,16 @@ SESSION_SAVE_EVERY_REQUEST = True # For session dictionary modifications between
 
 # EMAIL SETTINGS
 EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER')
-#EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN')
-#EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD')
-EMAIL_HOST_USER = 'postmaster@mg.nutrigeopacheco.com'
-EMAIL_HOST_PASSWORD = 'da1821f91fd6ebd5eb6b139f78b2fdfb-a65173b1-54bfe816'
+EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN')
+EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD')
 EMAIL_PORT = os.getenv('MAILGUN_SMTP_PORT')
 EMAIL_USE_TLS = True
 EMAIL_SENDER_CONSULTA = os.getenv('EMAIL_SENDER_CONSULTA')
 EMAIL_SENDER_COMPRAS = os.getenv('EMAIL_SENDER_COMPRAS')
 EMAIL_ERROR_REPORT = os.getenv('EMAIL_ERROR_REPORT')
 EMAIL_OWNER = os.getenv('EMAIL_OWNER')
-#MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_API_KEY')
-MAILGUN_ACCESS_KEY = '61fe451b64c43233fd61299540af0b50-a65173b1-4569a034'
-MAILGUN_SERVER_NAME = 'mg.nutrigeopacheco.com'
-#MAILGUN_SERVER_NAME = os.getenv('MAILGUN_DOMAIN')
+MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_API_KEY')
+MAILGUN_SERVER_NAME = os.getenv('MAILGUN_DOMAIN')
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only

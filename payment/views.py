@@ -311,8 +311,7 @@ def send_order_email(**kargs):
             subject,
             content,
             EMAIL_SENDER_COMPRAS,
-            [EMAIL_OWNER],
-            #[payer_email, EMAIL_OWNER],
+            [payer_email, EMAIL_OWNER],
             html_message= content,
             fail_silently=False,
         )
@@ -337,3 +336,8 @@ def send_error_email(**kargs):
         html_message= content,
         fail_silently=False,
     )
+
+
+def test_email(request):
+
+    return render(request, 'payment/emails/purchase_email.html', context={'success': False})
