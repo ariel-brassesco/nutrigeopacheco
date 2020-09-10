@@ -13,6 +13,7 @@ class Promotion(models.Model):
         ('product', 'product'),
         ('category', 'category'),
         ('shipping', 'shipping'),
+        ('payment', 'payment'),
         ('all', 'all'),
     ]
 
@@ -26,6 +27,7 @@ class Promotion(models.Model):
     target = models.CharField(choices=PROMO_TARGET, max_length=20)
     _type = models.CharField(choices=PROMO_TYPES, max_length=20)
     code = models.CharField(max_length=20)
+    text = models.CharField(max_length=200)
     is_active = models.BooleanField(default=False)
 
     def __str__(self):

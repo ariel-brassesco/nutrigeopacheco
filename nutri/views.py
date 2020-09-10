@@ -118,6 +118,5 @@ def get_promotion(request):
         promotions = Promotion.objects.filter(is_active=True)
         #serialize the data
         serializer = PromotionSerializer(promotions, many=True)
-        
         return Response(serializer.data)
     return Response([], status=status.HTTP_400_BAD_REQUEST)

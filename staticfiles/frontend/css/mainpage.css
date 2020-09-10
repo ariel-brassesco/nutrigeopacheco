@@ -1,6 +1,7 @@
 .mainpage {
     display: grid;
     grid-template-areas:
+        'promo promo'
         'nav nav'
         'filter showcase'
         'foot-menu foot-menu'
@@ -18,12 +19,21 @@
 .cart {
     grid-area: nav;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 5px;
     margin-right: 10px;
 }
 
+.promotions {
+    grid-area: promo;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin-top: 5px;
+    background-color: hsl(141, 53%, 53%);
+}
 
 /*.nav-breadcrumb {
     grid-area: nav;
@@ -105,6 +115,7 @@
 @media screen and (max-width: 600px) {
     .mainpage {
         grid-template-areas:
+            'promo'
             'nav'
             'filter'
             'showcase'

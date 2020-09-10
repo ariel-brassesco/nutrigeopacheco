@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'payment/css/index.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/shipping_info.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/cart.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/promotions.css' %}">
 {% endblock %}
 
 {%block body %}
@@ -21,6 +22,12 @@
         {% header OWNER %}
     </header>
 
+    <div class='promotions-info'>
+        {% for promo in discounts %}
+            {% gen_promo_info promo %}
+        {% endfor %}
+    </div>
+    
     <div class='payment-page'>
         <div class='payment-form'>
             {% payment_form cart_id %}
@@ -29,8 +36,11 @@
             {% for item in items %}
                 {% show_item item %}
             {% endfor %}
+            
+            <div id='discount-items'></div>
+            
             <div class='cart-footer'>
-                <p>Total: </p><p>$ {{items|total_purchase|floatformat:2}}</p>
+                <p>Total: </p><p id='total-cart'>$ {{items|total_purchase|floatformat:2}}</p>
             </div>
         </div>
     </div>
@@ -52,4 +62,5 @@
 {% block javascript %}
     <script src="{% static 'nutri/js/header.js'%}"></script>
     <script src="{% static 'frontend/js/header_events.js'%}"></script>
+    <script src="{% static 'payment/js/discounts.js'%}"></script>
 {% endblock %}

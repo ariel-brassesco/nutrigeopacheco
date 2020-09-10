@@ -10,8 +10,8 @@ import mercadopago as MP_PAYMENT
 from nutrigeopacheco.settings import MERCADOPAGO_ACCESS_TOKEN
 from nutrigeopacheco.settings import EMAIL_SENDER_COMPRAS, EMAIL_OWNER, EMAIL_ERROR_REPORT
 
-from nutri.models import Product, Place
-from nutri.serializers import ProductSerializer
+from nutri.models import Product, Place, Promotion
+from nutri.serializers import ProductSerializer, PromotionSerializer
 from .models import Order, OrderItem
 
 # Define some constant data
@@ -36,14 +36,21 @@ def index(request):
             items = list(zip(product, quantity)) #Create a list of tuples (ID, quantity)
             
             try:
-                #Retrieve products from database
+                #Retrieve products and general promotions from database
                 products = map(lambda item: (Product.objects.get(id=item[0]), item[1]), items)
+                promos = Promotion.objects.filter(
+                    is_active=True,
+                    target__in = ['shipping', 'all', 'payment']
+                    )
                 #Serialize the product objects and add the quantity key
                 items = [{**ProductSerializer(prod).data, 'quantity': int(q)} for prod, q in products]
+                #Serialize the promotion objects
+                discounts = PromotionSerializer(promos, many=True).data
                 #Create the context dictionary, set and uuid for cart_id
                 context = {
                     'cart_id': str(uuid.uuid4()),
-                    'items': items
+                    'items': items,
+                    'discounts': discounts
                     }
                 #Save the items in session
                 request.session['cart'] = context

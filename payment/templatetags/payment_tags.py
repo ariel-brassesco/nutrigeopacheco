@@ -56,3 +56,9 @@ def show_item(item):
 def total_purchase(items):
     subtotal = [(float(item['price']), int(item['quantity'])) for item in items]
     return reduce(lambda x, y: x + y[0]*y[1], subtotal,0)
+
+@register.inclusion_tag('payment/components/show_gen_promo.html')
+def gen_promo_info(promo):
+    res = {**promo, 'type': promo['_type']}
+    del res['_type']
+    return res

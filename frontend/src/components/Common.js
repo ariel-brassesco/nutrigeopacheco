@@ -14,7 +14,7 @@ export const NoStockTag = () => {
 
 export function WhatsappContact(props){
     return (
-        <a href='https://wa.me/541135220054' className='icon whatsapp-contact' target='_blank'>
+        <a href='https://wa.me/541135220054?text=Hola quisiera consultarte sobre ' className='icon whatsapp-contact' target='_blank'>
             <i className='fab fa-2x fa-whatsapp'></i>
         </a>
     )
