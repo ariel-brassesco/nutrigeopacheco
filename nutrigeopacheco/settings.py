@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['nutrigeopacheco.herokuapp.com','nutrigeopacheco.com','127.0.0.1', '0.0.0.0']
 
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
-    #'sslserver', #Only for development
+    'sslserver', #Only for development
     'gdstorage'
 ]
 
