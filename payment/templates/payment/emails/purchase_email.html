@@ -44,6 +44,14 @@ ul {
     font-weight: bold;
 }
 
+.discount-item {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.2em;
+    max-width: 300px;
+}
+
 </style>
 </head>
 
@@ -81,7 +89,12 @@ text-align: left;'>
             </div>
         </div>
     {% endfor %}
-    <p><strong>Total: $ {{items|total_purchase|floatformat:2}}</strong></p>
+    {% if discount %}
+        <div class="discount-item">
+            <p>Descuento</p><p>-$ {{discount|floatformat:2}}</p>
+        </div>
+    {% endif %}
+    <p><strong>Total: $ {{total_order|floatformat:2}}</strong></p>
     </div>
     <div>
         <h4>Datos del comprador:</h4>

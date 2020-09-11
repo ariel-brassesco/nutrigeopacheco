@@ -8,6 +8,30 @@
     background-color: hsl(141, 53%, 53%);
 }
 
+/*Discounts Items*/
+#discount-items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.discount-item {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.discount-item p{
+    padding: 10px;
+}
+
+.discount-item p:first-of-type{
+    background-color: hsl(141, 53%, 53%);
+    border-radius: 15px;
+    margin-right: 0.5em;
+}
+
 /* Payment Page CSS*/
 .payment-page {
     display: flex;

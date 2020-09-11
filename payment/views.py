@@ -19,10 +19,12 @@ FIELDS_FORM = (
     'name','surname','email', 'tel',
     'country', 'province', 'city',
     'street', 'number', 'depto',
-    'comment', 'payment-method'
+    'comment', 'payment-method',
+    'apply_discount'
     )
 REQUIRED_FIELDS = ('name', 'email', 'payment-method')
 PAYMENT_METHODS = ('mercadopago', 'efectivo', 'transferencia')
+DISCOUNT_FIELD = 'apply_discount'
 
 # Create your views here.
 def index(request):
@@ -268,12 +270,28 @@ def release_stock(items):
         prod = Product.objects.get(id=item['id'])
         prod.release_stock()
 
+def apply_discount(amount, discount_id):
+    dis = Promotion.objects.filter(is_active=True).get(id=discount_id)
+    if not dis: return amount
+    
+    if dis._type == 'percent':
+        amount_dis = float(dis.code.split('-')[0])/100*amount
+        return ((amount - amount_dis), amount_dis) 
+    return (amount, None)
+
 def create_order(cart, cart_id, **mpargs):
     items = generate_items_data(cart['items'])
     order_data = generate_order_data(cart, **mpargs)
     total_order = reduce(lambda x, y: x + y['price']*y['quantity'], items, 0)
     payment_method = cart['user']['payment-method']
     status = 'approved' if payment_method == 'mercadopago' else 'pending'
+    
+    # Aplicar descuentos
+    discount = cart['user'].get(DISCOUNT_FIELD)
+    amount_discount = None
+    if discount:
+        total_order, amount_discount = apply_discount(total_order, discount)
+
     #Generate Order
     try:
         new_order = Order.objects.create(status=status,total=total_order, **order_data) #sirve
@@ -303,7 +321,9 @@ def create_order(cart, cart_id, **mpargs):
         user=user_info,
         items=items_info,
         payment_method=payment_method,
-        OWNER=Place.objects.first()
+        OWNER=Place.objects.first(),
+        total_order=total_order,
+        discount=amount_discount
         )
 
 def send_order_email(**kargs):

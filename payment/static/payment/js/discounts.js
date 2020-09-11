@@ -3,8 +3,8 @@
 function get_available_discount(type){
     const discount = document.querySelectorAll(`[data-discount=${type}]`);
     const res = Array.prototype.map.call(discount, ({dataset}) => { 
-        let {code, type} = dataset;
-        return {code,type};
+        let {id, code, type} = dataset;
+        return {id, code,type};
     })
     return res;
 }
@@ -18,7 +18,7 @@ function get_total_cart(){
     return items.reduce((a,b)=> a+b, 0);
 }
 
-function add_discount_to_cart(amount, type) {
+function add_discount_to_cart(id, amount, type) {
     let total = get_total_cart();
     let discount = 0;
     const dis_items = document.getElementById('discount-items');
@@ -34,11 +34,14 @@ function add_discount_to_cart(amount, type) {
             let discount_text = document.createElement('p');
             let discount_price = document.createElement('p');
             // Populet "p" with data
-            discount_text.innerText = `${parseInt(amount)}% Descuento`;
+            discount_text.innerText = `${parseInt(amount)}% OFF`;
             discount_price.innerText = `-$ ${discount.toFixed(2)}`;
             // Add "p" tag into "div" tag
             discount_item.appendChild(discount_text);
             discount_item.appendChild(discount_price);
+            // Add CSS class and attributes
+            discount_item.classList.add('discount-item');
+            discount_item.setAttribute('data-id', id);
             // Append to fragment
             fragment.appendChild(discount_item);
             // Append fragment into dis_items
@@ -71,7 +74,7 @@ function applyPaymentDiscount(discount) {
         if (discount == payment) {
             discount_applied = true;
             amount = parseFloat(amount);
-            let total = add_discount_to_cart(amount, d.type);
+            let total = add_discount_to_cart(d.id, amount, d.type);
             applyDiscountToTotal(total);
         }
     });
@@ -85,6 +88,32 @@ function applyPaymentDiscount(discount) {
 document.addEventListener('click', (e) => {
     const elem = e.target;
     if (elem.name == 'payment-method') {
-        if (elem.checked) applyPaymentDiscount(elem.value);
+        if (elem.checked && (getData('apply_discount') !== elem.value)) {
+            applyPaymentDiscount(elem.value);
+        }
+        saveData('apply_discount', elem.value);
     }
-})
+});
+
+document.addEventListener('submit', (e)=> {
+    e.preventDefault();
+    const form = e.target;
+    const discount = document.getElementsByClassName('discount-item');
+    
+    // Add the discount as input if any
+    if (discount.length > 0) {
+        for (let dis of discount) {
+            let field = document.createElement('input');
+            field.setAttribute('type', 'hidden');
+            field.setAttribute('name', 'apply_discount');
+            field.setAttribute('value', dis.dataset.id);
+            form.appendChild(field);
+        }
+    }
+    // Submit Form
+    form.submit();
+}, false);
+
+
+document.addEventListener('DOMContentLoaded',saveData.bind(null, 'apply_discount', null), false);
+
