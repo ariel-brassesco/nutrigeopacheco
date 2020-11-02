@@ -115,6 +115,7 @@ def mercadopago(request, cart_id):
         )
     # Get items from session
     items = request.session['cart']['items']
+    discount = request.session['cart']['user'].get(DISCOUNT_FIELD)
     # Convert items to dictionary for preference
     logo_picture = Place.objects.first().logo.url
     items = [
@@ -124,7 +125,7 @@ def mercadopago(request, cart_id):
             #"picture_url": item.get('images')[0],
             "picture_url": logo_picture,
             'currency_id': 'ARS',
-            'unit_price': item.get('price')
+            'unit_price': apply_discount(item.get('price'), discount)[0]
             } for item in items
         ]
     items = [{key: item.get(key) for key in ITEMS_KEYS} for item in items]

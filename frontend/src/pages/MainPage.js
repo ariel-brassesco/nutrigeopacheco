@@ -6,7 +6,8 @@ import Cart from '../containers/Cart';
 import Promotions, {GeneralPromotion} from '../containers/Promotions';
 import {
     WhatsappContact,
-    BannerInfo
+    BannerInfo,
+    GeneralAnnouncement
 } from '../components/Common';
 
 import {
@@ -22,6 +23,9 @@ class MainPage extends Component {
                 {/*<Breadcrum />*/}
                 <Promotions url={URL_API_PROMOTIONS} />
                 <GeneralPromotion />
+                <GeneralAnnouncement 
+                    className="promo-gen is-danger"
+                    text="Cyber Monday - 25% OFF en todos los Productos."/>
                 <Cart />
                 <NavFilter url={URL_API_CATEGORIES} />
                 <Showcase url={URL_API_PRODUCTS} />

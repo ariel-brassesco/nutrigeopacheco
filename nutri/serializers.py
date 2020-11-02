@@ -33,7 +33,6 @@ class PromotionSerializer(ModelSerializer):
     #products = ProductSerializer(many=True, read_only=True)
     class Meta:
         model = Promotion
-        #fields = ['product_list']
         fields = '__all__'
 
 class ProductImagesSerializer(RelatedField):

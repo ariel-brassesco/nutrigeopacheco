@@ -19,7 +19,7 @@ import { saveData } from '../utils/functions';
 
 function BannerGeneralPromotion({promotions}){
     
-    let data = promotions.filter(({target}) => target == 'payment')
+    let data = promotions.filter(({target}) => target === 'payment')
 
     return (
         <div className='promotions'>

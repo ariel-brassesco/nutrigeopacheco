@@ -12,6 +12,23 @@ export const NoStockTag = () => {
         )
 }
 
+export const PromoTag = ({ data, className }) => {
+    const {_type, is_active, text } = data;
+    
+    if (!is_active) return null;
+    
+    switch (_type) {
+        case "percent":
+            return (
+                <span className={className}>
+                    {`${text}% OFF`}
+                </span>
+            )
+        default:
+            return null;
+    }
+}
+
 export function WhatsappContact(props){
     return (
         <a href='https://wa.me/541135220054?text=Hola quisiera consultarte sobre ' className='icon whatsapp-contact' target='_blank'>
@@ -52,3 +69,11 @@ export function BannerInfo(props) {
         </div>
     )
 }
+
+export const GeneralAnnouncement = ({text, className}) => (
+    <div className='promotions'>
+        <p className={className}>
+            {text}
+        </p>
+    </div>
+    )

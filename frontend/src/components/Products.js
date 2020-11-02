@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import {NewProductTag, NoStockTag} from './Common';
+import {NewProductTag, NoStockTag, PromoTag} from './Common';
 
 export const Product = ({prod, show}) => {
     
     const {images, title, price, is_new, new_enabled, has_stock} = prod;
+    const { promotions } = prod;
     const picture = images[0];    
     const newTag = (is_new && new_enabled)?<NewProductTag />:null;
     const noStock = (!has_stock)?<NoStockTag />:null;
-
+    const promo = (promotions.length > 0)
+        ?(<PromoTag data={promotions[0]} className="tag is-danger product-tag__new"/>)
+        :null;
 
     return (
         <div className="card showcase-item" onClick={show.bind(null, prod)}>
             {newTag}
+            {promo}
             <div className="card-image">
                 <figure className="image is-1by1">
                     <img src={picture} alt={title} />
@@ -140,7 +144,11 @@ export class ProductDetail extends Component {
 
     render(){
         const {title, description, price, images, has_stock} = this.props.data;
+        const { promotions } = this.props.data;
         const {quantity} = this.state;
+        const promo = (promotions.length > 0)
+            ?<PromoTag data={promotions[0]} className="tag is-danger is-align-self-flex-start"/>
+            :null;
         let noStock;
         if (!has_stock) {
             noStock = <NoStockTag />;
@@ -170,7 +178,8 @@ export class ProductDetail extends Component {
                             return <p key={idx}>{line}</p>
                         })} {/*Split the description by \n and put in a different <p> */}
                     </div>
-                    <p className='product-detail-price'>$ {price}</p>
+                    <p className='product-detail-price'>$ {price} {promo}</p>
+                    
                     <hr/>
                     {noStock}
                 </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {QuantityWidget} from './Products';
+import { PromoTag } from "./Common";
 //import {Redirect} from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -44,12 +45,15 @@ export function CartMenuIcon(props){
 
 function CartItem(props) {
     const { id, title, images, price, stock} = props.data;
-    const { item_id, quantity } =props.data;
+    const { item_id, quantity, promotions } =props.data;
     const {updateItem, removeItem} = props;
 
     let quanMinus = ((quantity-1) < 1)?1:quantity-1;
     let quanPlus = ((quantity+1) > stock)?stock:quantity+1;
     const subtotal = quantity*price;
+    const promo = (promotions.length > 0)
+            ?<PromoTag data={promotions[0]} className="tag is-danger"/>
+            :null;
     return (
         <div className='cart-item'>
             <figure className="image is-64x64 cart-item-image">
@@ -58,7 +62,7 @@ function CartItem(props) {
             <div className='cart-item-info'>
                 <p className='cart-item-title'>{title}</p>
                 <input type='text' name="product" value={id} readOnly={true} hidden/>
-                <p>{`$ ${price}`}</p>
+                <p className="mb-1">{`$ ${price}`} {promo}</p> 
                 <QuantityWidget name='quantity'
                                 quantity={quantity}
                                 increment={updateItem.bind(null, item_id, {quantity: quanPlus})}

@@ -82,7 +82,20 @@ function applyPaymentDiscount(discount) {
     if (!discount_applied) {
         removeDiscount();
         applyDiscountToTotal(get_total_cart());
+        applyAllDiscount();
     }
+}
+
+function applyAllDiscount() {
+    const gen_dis = get_available_discount('all');
+    
+    // Check and apply discount
+    gen_dis.forEach(d => {
+        let [amount, ] = d.code.split('-');
+        amount = parseFloat(amount);
+        let total = add_discount_to_cart(d.id, amount, d.type);
+        applyDiscountToTotal(total);
+    });
 }
 
 document.addEventListener('click', (e) => {
@@ -115,5 +128,8 @@ document.addEventListener('submit', (e)=> {
 }, false);
 
 
-document.addEventListener('DOMContentLoaded',saveData.bind(null, 'apply_discount', null), false);
+document.addEventListener('DOMContentLoaded', () => {
+    saveData.bind(null, 'apply_discount', null);
+    applyAllDiscount();
+}, false);
 
