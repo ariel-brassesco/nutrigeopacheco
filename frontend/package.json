@@ -1,0 +1,54 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"
+  },
+  "keywords": [],
+  "author": "Ariel Brassesco",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bulma": "^0.9.0",
+    "js-cookie": "^2.2.1",
+    "proptypes": "^1.1.0",
+    "react": "^16.13.1",
+    "react-app-polyfill": "^2.0.0",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^8.2.0",
+    "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.1",
+    "@testing-library/user-event": "^12.2.0",
+    "@types/lodash": "^4.14.165",
+    "@types/react": "^16.9.56",
+    "@types/react-dom": "^16.9.9",
+    "@types/react-redux": "^7.1.11",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/yup": "^0.29.9",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "http-proxy-middleware": "^1.0.6",
+    "prettier": "^2.1.2",
+    "react-scripts": "4.0.0",
+    "typescript": "^4.0.5"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ]
+}

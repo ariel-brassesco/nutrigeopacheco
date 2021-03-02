@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", "") == "true"
 
 if DEBUG:
     ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 else:
-    ALLOWED_HOSTS = ['nutrigeopacheco.herokuapp.com','nutrigeopacheco.com']
+    ALLOWED_HOSTS = ['nutrigeopacheco.herokuapp.com', 'nutrigeopacheco.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS += ['sslserver']#Only for development
+    INSTALLED_APPS += ['sslserver']  # Only for development
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,17 +82,17 @@ WSGI_APPLICATION = 'nutrigeopacheco.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-import dj_database_url
-DATABASES = {
-    'default':  dj_database_url.config(conn_max_age=600)
-}
+# import dj_database_url
+# DATABASES = {
+#     'default':  dj_database_url.config(conn_max_age=600)
+# }
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -137,7 +137,8 @@ MEDIA_URL = "/media/"
 
 # Google Drive Storage Settings
 GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = None
-OOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS = os.getenv('GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS')
+OOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS = os.getenv(
+    'GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS')
 GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = 'nutrigropacheco/media'
 
 
@@ -158,9 +159,8 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SESSION_SAVE_EVERY_REQUEST = True # For session dictionary modifications between request
-#LETSENCRYPT_URL = os.environ.get('LETSENCRYPT_URL')
-#LETSENCRYPT_RESPONSE = os.environ.get('LETSENCRYPT_RESPONSE', '')
+# For session dictionary modifications between request
+SESSION_SAVE_EVERY_REQUEST = True
 
 # EMAIL SETTINGS
 EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER')
@@ -176,7 +176,7 @@ MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_API_KEY')
 MAILGUN_SERVER_NAME = os.getenv('MAILGUN_DOMAIN')
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 # Global settings for Django REST Framework
 REST_FRAMEWORK = {

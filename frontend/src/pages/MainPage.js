@@ -7,7 +7,7 @@ import Promotions, { GeneralPromotion } from "../containers/Promotions";
 import {
   WhatsappContact,
   BannerInfo,
-  GeneralAnnouncement,
+  // GeneralAnnouncement,
 } from "../components/Common";
 
 import {
