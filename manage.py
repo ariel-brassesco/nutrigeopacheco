@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+import json
 import os
+from pathlib import Path
 import sys
-import dotenv
+from dotenv import load_dotenv
 
 
 def main():
     try:
-        dotenv.read_dotenv()
+        dir = Path(__file__).resolve().parent
+        env_path = os.path.join(dir, ".env")
+        load_dotenv(env_path)
     except Exception as e:
         print('no .env file, using default os env')
 

@@ -1,0 +1,10 @@
+@import "~bulma/css/bulma.css";
+
+@import "./normalize.css";
+@import "./loaders.css";
+@import "./mainpage.css";
+@import "./shipping_info.css";
+@import "./promotions.css";
+@import "./cart.css";
+@import "./filters.css";
+@import "./showcase.css";

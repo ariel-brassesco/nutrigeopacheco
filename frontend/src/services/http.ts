@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { logout } from "../actions/dashboardActions";
-import store from "../store";
+// import { logout } from "../actions/dashboardActions";
 
 type Data = Record<string, any>;
 
@@ -8,7 +7,7 @@ const mapData = (result: AxiosResponse<any>) => result.data;
 
 const handleError = async (error: Error & { response: AxiosResponse<any> }) => {
   if (error.response.status === 401) {
-    await store.dispatch(logout() as any);
+    // await store.dispatch(logout() as any);
     window.location.reload(true);
   }
 
@@ -54,16 +53,7 @@ export class Http {
 export const http = new Http();
 
 export const apiRoutes = {
-  login: "/api-token-auth/",
-  me: "/accounts/me/",
-  validate_username: "/accounts/validate_username/",
-  order_whatsapp: "/orders/whatsapp/",
-  owner_data: "/orders/owner/",
-  employee_data: "/accounts/employees/",
-  types_data: "/orders/types/",
-  products_data: "/orders/products/",
-  orders: "/orders/",
-  tables_data: "/tables/",
-  tableorder: "/tables/tableorder/",
-  staff_table: "/tables/staff/",
+  products: "api/products/",
+  categories: "api/category/",
+  promotions: "api/promotion/",
 };

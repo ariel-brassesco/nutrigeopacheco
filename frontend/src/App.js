@@ -1,19 +1,19 @@
+import "./styles/main.css";
+import "@fortawesome/fontawesome-free/js/all";
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-
-// export const URL_API_PRODUCTS = location.origin + "/api/products";
-// export const URL_API_CATEGORIES = location.origin + "/api/category";
-// export const URL_API_PROMOTIONS = location.origin + "/api/promotion";
+import HomePage from "./pages/home-page";
+import ContactPage from "./pages/contact-page";
+import StorePage from "./pages/store-page";
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter basename="/tienda">
+      <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={MainPage} />
-          <Route exact path="/:category" component={MainPage} />
-          <Route exact path="/:category/:product" component={MainPage} />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/tienda" component={StorePage} />
+          <Route exact path="/contacto" component={ContactPage} />
           {/*<Route component={NotFound}/>*/}
         </Switch>
       </BrowserRouter>

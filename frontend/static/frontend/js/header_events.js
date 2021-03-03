@@ -1,6 +1,10 @@
-'use strict';
-document.addEventListener('click', (e)=> {
+"use strict";
+document.addEventListener(
+  "click",
+  (e) => {
     const elem = e.target;
-    const menu = document.querySelector('.header-menu');
+    const menu = document.querySelector(".header-menu");
     showMenuMobile(elem, menu);
-}, false);
+  },
+  false
+);

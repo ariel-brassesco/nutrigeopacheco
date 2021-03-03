@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,14 +26,14 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.environ.get("DEBUG", "") == "true"
 
 if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+    ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
 else:
     ALLOWED_HOSTS = ['nutrigeopacheco.herokuapp.com', 'nutrigeopacheco.com']
 
 # Application definition
 INSTALLED_APPS = [
     'nutri.apps.NutriConfig',
-    'frontend.apps.FrontendConfig',
+    # 'frontend.apps.FrontendConfig',
     'payment.apps.PaymentConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,17 +43,19 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
-    'gdstorage'
+    'gdstorage',
+    'corsheaders',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += ['sslserver']  # Only for development
+# if DEBUG:
+#     INSTALLED_APPS += ['sslserver']  # Only for development
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -64,7 +67,7 @@ ROOT_URLCONF = 'nutrigeopacheco.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,10 +144,17 @@ OOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS = os.getenv(
     'GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS')
 GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = 'nutrigropacheco/media'
 
-
+# Storage Files
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "frontend", "build", "static"),
 ]
+
+DEFAULT_FILE_STORAGE = ('django.core.files.storage.FileSystemStorage'
+                        if DEBUG else 'gdstorage.storage.GoogleDriveStorage')
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

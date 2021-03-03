@@ -5,8 +5,8 @@ app_name = 'nutri'
 urlpatterns = [
     path("", views.index, name="index"),
     path("contact", views.contact, name="contact"),
-    path("api/category/", views.get_category),
-    path("api/promotion/", views.get_promotion),
-    path("api/products/", views.get_products),
-    path("api/products/<int:pk>/", views.get_product_detail),
+    path("category/", views.get_category),
+    path("promotion/", views.get_promotion),
+    path("products/", views.get_products),
+    path("products/<int:pk>/", views.get_product_detail),
 ]
