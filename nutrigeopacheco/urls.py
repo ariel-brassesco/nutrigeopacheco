@@ -22,13 +22,10 @@ from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
 from .views import index
 
 urlpatterns = [
-    path('api/', include('nutri.urls')),
     path('payment/', include('payment.urls')),
+    path('api/', include('nutri.urls')),
     path('admin/', admin.site.urls),
 ]
-
-if DEBUG:
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
 if DEBUG:

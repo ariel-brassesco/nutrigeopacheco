@@ -1,0 +1,130 @@
+/*Promotions Info*/
+.promotions-info {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin-top: 5px;
+    background-color: hsl(141, 53%, 53%);
+}
+
+/*Discounts Items*/
+#discount-items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.discount-item {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.discount-item p{
+    padding: 10px;
+}
+
+.discount-item p:first-of-type{
+    background-color: hsl(141, 53%, 53%);
+    border-radius: 15px;
+    margin-right: 0.5em;
+}
+
+/* Payment Page CSS*/
+.payment-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.payment-form, .payment-items {
+    margin-left: 20px;
+    margin-right: 20px;
+    min-width: 40%;
+}
+
+/* Form Payment CSS */
+.payment-form-fieldset {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.payment-comment {
+    width: 100%;
+}
+
+.payment-form-methods {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+input[name='payment-method']:checked + label {
+    border: 1px solid cyan;
+    box-shadow: 0px 0px 5px cyan;
+}
+
+.payment-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.payment-form-btn {
+    display:flex;
+    width: 150px;
+}
+
+@media screen and (max-width: 768px){
+
+    .payment-page {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .payment-form {
+        order: 2;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+        min-width: auto;
+        max-width: 100%;
+    }
+
+    .payment-items {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .payment-form-fieldset legend,
+    .payment-form-fieldset .field {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .payment-form-fieldset .field {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .payment-form-btn {
+        max-width: 40%;
+    }
+
+}

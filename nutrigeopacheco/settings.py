@@ -33,7 +33,6 @@ else:
 # Application definition
 INSTALLED_APPS = [
     'nutri.apps.NutriConfig',
-    # 'frontend.apps.FrontendConfig',
     'payment.apps.PaymentConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,8 +42,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
-    'gdstorage',
     'corsheaders',
+    'gdstorage',
 ]
 
 # if DEBUG:
@@ -75,7 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'nutri.context_processors.place_info',
+                # 'nutri.context_processors.place_info',
             ],
         },
     },
@@ -162,13 +161,13 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # SSL Configuration
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # For session dictionary modifications between request
 SESSION_SAVE_EVERY_REQUEST = True
 
@@ -205,3 +204,10 @@ REST_FRAMEWORK = {
 
 # MERCADOPAGO
 MERCADOPAGO_ACCESS_TOKEN = os.getenv('MERCADOPAGO_ACCESS_TOKEN')
+
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "https://nutrigeopacheco.herokuapp.com",
+    "https://nutrigeopacheco.com",
+]

@@ -1,0 +1,21 @@
+.loader-checkout, .response-checkout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-checkout-content {
+    text-align: center;
+    margin-top: -50px;
+}
+
+.response-checkout-content{
+    text-align: center;
+}
+
+.response-checkout-image {
+    margin-top: 20vmin;
+    width: 10vmin;
+}
+
