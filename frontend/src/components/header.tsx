@@ -1,6 +1,8 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// Import Components
+import { Navbar } from "./navbar";
 // Import Actions
 import { fetchPlace } from "../store/place";
 // Import Getters
@@ -14,37 +16,12 @@ export const Header: FC = () => {
     dispatch(fetchPlace());
   }, [dispatch]);
 
-  console.log(place);
   return (
     <div className="header-main">
       <div className="header-contact background-fruits--transparent">
         <img className="header-logo" src={place.logo} alt="" />
       </div>
-      <nav className="header-nav-bar">
-        <div className="header-menu--mobile">
-          <span className="icon header-menu-icon--mobile">
-            <i className="fas fa-bars"></i>
-          </span>
-          <p className="header-menu__title">MENU</p>
-        </div>
-        <ul className="header-menu">
-          <li className="header-menu__item">
-            <a className="header-menu__link" href="\">
-              inicio
-            </a>
-          </li>
-          <li className="header-menu__item">
-            <a className="header-menu__link" href="\tienda">
-              tienda
-            </a>
-          </li>
-          <li className="header-menu__item">
-            <a className="header-menu__link" href="\contacto">
-              contacto
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Navbar />
     </div>
   );
 };

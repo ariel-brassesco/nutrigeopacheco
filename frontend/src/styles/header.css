@@ -76,12 +76,12 @@
         font-weight: bold;
     }
 
-    .header-menu {
+    /* .header-menu {
         flex-direction: column;
         max-height: 0px;
         overflow-y: hidden;
         transition: max-height 0.5s linear;
-    }
+    } */
 
     .header-menu__show {
         max-height: 400px;

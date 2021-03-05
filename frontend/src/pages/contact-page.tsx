@@ -1,14 +1,21 @@
 import React, { FC } from "react";
 
-import Page from "../components/page";
-import Header from "../components/header";
-import Footer from "../components/footer";
+// Import Components
+import { ContactForm } from "../components/forms/contact-form";
 
 const ContactPage: FC = () => {
   return (
-    <Page header={<Header />} footer={<Footer />}>
-      Contacto
-    </Page>
+    <div>
+      <div className="contact-info">
+        <h1 className="contact-info-title">Formulario de Contacto</h1>
+        <p className="block">
+          Consultorio de Nutrición Clínica para adultos y familias.
+        </p>
+        <p className="block">Se realizan consultas virtuales y presenciales.</p>
+        <p className="block">Envíanos tu consulta para más información.</p>
+      </div>
+      <ContactForm />
+    </div>
     // <div className="mainpage">
   );
 };
