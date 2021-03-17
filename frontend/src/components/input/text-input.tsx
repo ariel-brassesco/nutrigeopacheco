@@ -1,4 +1,4 @@
-import React, { FC, HTMLProps } from "react";
+import React, { FC, HTMLProps, ReactNode } from "react";
 import classNames from "classnames";
 import { useField } from "formik";
 
@@ -10,34 +10,40 @@ interface Props extends HTMLProps<HTMLInputElement> {
   label?: string;
   margin?: boolean;
   labelClass?: string;
+  iconLeft?: ReactNode;
+  iconRight?: ReactNode;
+  iconClass?: string;
 }
 
 export const TextInput: FC<Props> = ({
   label,
   labelClass,
   margin = true,
+  iconLeft,
+  iconRight,
+  iconClass,
   ...props
 }) => {
   const [field, meta] = useField(props as any);
 
   return (
-    <div className={classNames({ "mb-2": margin })}>
+    <div className="field">
       {!!label && (
         <label className={labelClass} htmlFor={props.id ?? props.name}>
           {label}
         </label>
       )}
-      <Input
-        className={classNames({
-          "border-red-500": meta.touched && meta.error,
-        })}
-        data-testid="input"
-        {...field}
-        {...(props as any)}
-      />
-      <span className="icon is-small is-right">
-        <i className="fas fa-exclamation-triangle"></i>
-      </span>
+      <div className={iconClass}>
+        <Input
+          className={classNames({
+            "border-red-500": meta.touched && meta.error,
+          })}
+          {...field}
+          {...(props as any)}
+        />
+        {!!iconLeft && iconLeft}
+        {!!iconRight && iconRight}
+      </div>
       {meta.touched && meta.error ? (
         <p className="help is-danger">{meta.error}</p>
       ) : null}

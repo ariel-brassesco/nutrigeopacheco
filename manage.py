@@ -1,20 +1,17 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-import json
 import os
-from pathlib import Path
 import sys
-from dotenv import load_dotenv
+import dotenv
 
 
 def main():
     try:
-        dir = Path(__file__).resolve().parent
-        env_path = os.path.join(dir, ".env")
-        load_dotenv(env_path)
+        dotenv.load_dotenv()
     except Exception as e:
         print('no .env file, using default os env')
 
+    """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nutrigeopacheco.settings')
     try:
         from django.core.management import execute_from_command_line

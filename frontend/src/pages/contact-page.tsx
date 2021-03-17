@@ -14,7 +14,7 @@ const ContactPage: FC = () => {
         <p className="block">Se realizan consultas virtuales y presenciales.</p>
         <p className="block">Envíanos tu consulta para más información.</p>
       </div>
-      <ContactForm />
+      <ContactForm onOk={console.log} />
     </div>
     // <div className="mainpage">
   );

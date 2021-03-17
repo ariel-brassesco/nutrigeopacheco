@@ -17,17 +17,17 @@ const handleError = async (error: Error & { response: AxiosResponse<any> }) => {
 export class Http {
   public constructor() {
     axios.defaults.baseURL = "";
-    const token = localStorage.getItem("token") ?? "";
-    this.setAuth(token);
+    // const token = localStorage.getItem("token") ?? "";
+    // this.setAuth(token);
   }
 
-  public setAuth(token: string) {
-    if (token) {
-      axios.defaults.headers.common["authorization"] = `JWT ${token}`;
-    } else {
-      delete axios.defaults.headers.common["authorization"];
-    }
-  }
+  // public setAuth(token: string) {
+  //   if (token) {
+  //     axios.defaults.headers.common["authorization"] = `JWT ${token}`;
+  //   } else {
+  //     delete axios.defaults.headers.common["authorization"];
+  //   }
+  // }
 
   public get(path: string, options: AxiosRequestConfig = {}) {
     return axios.get(path, options).then(mapData).catch(handleError);

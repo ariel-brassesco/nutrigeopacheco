@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useCallback } from "react";
 import { Portal } from "react-portal";
-import { Button } from "./button";
+// import { Button } from "./button";
 
 export type ModalProps = {
   open?: boolean;
@@ -65,12 +65,12 @@ export const Modal: FC<ModalProps> = ({
               ) : null}
 
               <span className="mt-3 flex w-full sm:mt-0 sm:w-auto">
-                <Button
+                <button
                   className="inline-flex justify-center w-full"
                   onClick={handleClose}
                 >
                   Cerrar
-                </Button>
+                </button>
               </span>
             </div>
           </div>

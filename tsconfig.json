@@ -24,6 +24,5 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-
   "include": ["./node_modules/types-bn/index.d.ts"]
 }

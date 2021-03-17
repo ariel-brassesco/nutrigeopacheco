@@ -18,13 +18,14 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+
 from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
 from .views import index
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('payment/', include('payment.urls')),
     path('api/', include('nutri.urls')),
-    path('admin/', admin.site.urls),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -3,68 +3,117 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { toast } from "react-toastify";
 
 // import { Modal, ModalProps } from "../modal";
-import { TextInput } from "../text-input";
+import { TextInput } from "../input/text-input";
+import { PhoneInput } from "../input/phone-input";
+import { ContactData, ContactSchema } from "../../types/contact";
 
 type Props = {
-  address?: Address;
-  onOk?: () => void;
+  onOk?: (data: ContactData) => void;
 };
 
-type Values = Partial<Address>;
+type Values = ContactData;
 
-export const ContactForm: FC<Props> = ({ onOk, address }) => {
+export const ContactForm: FC<Props> = ({ onOk }) => {
   const onSubmit = useCallback(
     async (values: Values, actions: FormikHelpers<Values>) => {
       try {
-        toast.success("Dirección guardada");
-        onOk?.();
+        toast.success("Tu consulta fue enviada");
+        onOk?.(values);
       } catch (error) {
-        toast.error("No se pudo guardar la dirección");
+        toast.error("Upss!! Inténtalo de nuevo.");
       }
       actions.setSubmitting(false);
     },
-    [address?.id, onOk]
+    [onOk]
   );
 
   return (
     <Formik<Values>
       initialValues={{
-        name: address?.name ?? "",
-        street: address?.street ?? "",
-        city: address?.city ?? "",
-        state: address?.state ?? "",
-        betweenStreet1: address?.betweenStreet1,
-        betweenStreet2: address?.betweenStreet2,
+        name: "",
+        email: "",
+        tel: "",
+        message: "",
       }}
-      validationSchema={address?.id ? AddressCreateSchema : AddressCreateSchema}
+      validationSchema={ContactSchema}
       onSubmit={onSubmit}
       enableReinitialize
     >
-      {({ isSubmitting, handleSubmit }) => (
-        <Form>
+      {({ values, isSubmitting, submitForm, setFieldValue }) => (
+        <Form className="contact-form">
+          {console.log(values)}
           <TextInput
+            className="input valid-input"
             label="Nombre y Apellido"
+            labelClass="label contact-label label-input-required"
             name="name"
             placeholder="Nombre y Apellido"
+            iconClass="control has-icons-left"
+            iconLeft={
+              <span className="icon is-small is-left">
+                <i className="fas fa-user"></i>
+              </span>
+            }
           />
 
-          <TextInput label="Dirección" name="street" />
+          <TextInput
+            className="input valid-input"
+            label="E-mail"
+            labelClass="label contact-label label-input-required"
+            name="email"
+            iconClass="control has-icons-left has-icons-right"
+            iconLeft={
+              <span className="icon is-small is-left">
+                <i className="fas fa-envelope"></i>
+              </span>
+            }
+            iconRight={
+              <span className="icon is-small is-right">
+                <i className="fas fa-exclamation-triangle"></i>
+              </span>
+            }
+          />
 
-          <TextInput label="Ciudad" name="city" />
+          <PhoneInput
+            className="input valid-input"
+            label="Teléfono"
+            // labelClass="label contact-label"
+            name="tel"
+            placeholder="34215111111"
+            // iconClass="control has-icons-left has-icons-right"
+            // iconLeft={
+            //   <span className="icon is-small is-left">
+            //     <i className="fas fa-phone"></i>
+            //   </span>
+            // }
+            // iconRight={
+            //   <span className="icon is-small is-right">
+            //     <i className="fas fa-exclamation-triangle"></i>
+            //   </span>
+            // }
+            onChange={(value) => setFieldValue("tel", value ?? "")}
+          />
 
-          <TextInput label="Provincia" name="state" />
-
-          <TextInput label="Entre calle" name="betweenStreet1" />
-
-          <TextInput label="Y calle" name="betweenStreet2" />
-          <button
-            type="submit"
-            className=""
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-          >
-            enviar
-          </button>
+          <TextInput
+            className="textarea contact-message"
+            label="Consulta"
+            labelClass="label contact-label label-input-required"
+            name="message"
+            type="textarea"
+            maxLength={200}
+            iconClass="control"
+            iconLeft={<p className="help">Máximo 200 caracteres.</p>}
+          />
+          <div className="buttons is-centered">
+            <button
+              type="submit"
+              className=""
+              onClick={submitForm}
+              disabled={isSubmitting}
+            >
+              enviar
+            </button>
+          </div>
         </Form>
       )}
     </Formik>
