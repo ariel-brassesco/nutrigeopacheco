@@ -1,6 +1,5 @@
 import React, { FC, useCallback } from "react";
-import { Form, Formik, FormikHelpers } from "formik";
-import { toast } from "react-toastify";
+import { Form, Formik } from "formik";
 
 // import { Modal, ModalProps } from "../modal";
 import { TextInput } from "../input/text-input";
@@ -15,14 +14,10 @@ type Values = ContactData;
 
 export const ContactForm: FC<Props> = ({ onOk }) => {
   const onSubmit = useCallback(
-    async (values: Values, actions: FormikHelpers<Values>) => {
-      try {
-        toast.success("Tu consulta fue enviada");
-        onOk?.(values);
-      } catch (error) {
-        toast.error("Upss!! Inténtalo de nuevo.");
-      }
-      actions.setSubmitting(false);
+    async (values: Values, { setSubmitting }) => {
+      setSubmitting(true);
+      await onOk?.(values);
+      setSubmitting(false);
     },
     [onOk]
   );
@@ -39,9 +34,8 @@ export const ContactForm: FC<Props> = ({ onOk }) => {
       onSubmit={onSubmit}
       enableReinitialize
     >
-      {({ values, isSubmitting, submitForm, setFieldValue }) => (
-        <Form className="contact-form">
-          {console.log(values)}
+      {({ isSubmitting, submitForm, setFieldValue }) => (
+        <Form className="box contact-form">
           <TextInput
             className="input valid-input"
             label="Nombre y Apellido"
@@ -77,20 +71,20 @@ export const ContactForm: FC<Props> = ({ onOk }) => {
           <PhoneInput
             className="input valid-input"
             label="Teléfono"
-            // labelClass="label contact-label"
+            labelClass="label contact-label"
             name="tel"
             placeholder="34215111111"
-            // iconClass="control has-icons-left has-icons-right"
-            // iconLeft={
-            //   <span className="icon is-small is-left">
-            //     <i className="fas fa-phone"></i>
-            //   </span>
-            // }
-            // iconRight={
-            //   <span className="icon is-small is-right">
-            //     <i className="fas fa-exclamation-triangle"></i>
-            //   </span>
-            // }
+            iconClass="control has-icons-left has-icons-right"
+            iconLeft={
+              <span className="icon is-small is-left">
+                <i className="fas fa-phone"></i>
+              </span>
+            }
+            iconRight={
+              <span className="icon is-small is-right">
+                <i className="fas fa-exclamation-triangle"></i>
+              </span>
+            }
             onChange={(value) => setFieldValue("tel", value ?? "")}
           />
 
@@ -107,7 +101,9 @@ export const ContactForm: FC<Props> = ({ onOk }) => {
           <div className="buttons is-centered">
             <button
               type="submit"
-              className=""
+              className={`button contact-form__button is-success ${
+                isSubmitting ? "is-loading" : ""
+              }`}
               onClick={submitForm}
               disabled={isSubmitting}
             >

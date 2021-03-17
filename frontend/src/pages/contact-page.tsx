@@ -1,22 +1,38 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
+import { useDispatch } from "react-redux";
 
 // Import Components
 import { ContactForm } from "../components/forms/contact-form";
+// Import Actions
+import { sendContact } from "../store/place";
+// Import Types
+import { ContactData } from "../types/contact";
 
 const ContactPage: FC = () => {
+  const dispatch = useDispatch();
+
+  const handleContact = useCallback(
+    (data: ContactData) => {
+      dispatch(sendContact(data));
+    },
+    [dispatch]
+  );
   return (
-    <div>
-      <div className="contact-info">
+    <div className="main-contact-form">
+      <div className="box contact-info">
         <h1 className="contact-info-title">Formulario de Contacto</h1>
-        <p className="block">
+        <p className="contact-info__content">
           Consultorio de Nutrición Clínica para adultos y familias.
         </p>
-        <p className="block">Se realizan consultas virtuales y presenciales.</p>
-        <p className="block">Envíanos tu consulta para más información.</p>
+        <p className="contact-info__content">
+          Se realizan consultas virtuales y presenciales.
+        </p>
+        <p className="contact-info__content">
+          Envíanos tu consulta para más información.
+        </p>
       </div>
-      <ContactForm onOk={console.log} />
+      <ContactForm onOk={handleContact} />
     </div>
-    // <div className="mainpage">
   );
 };
 

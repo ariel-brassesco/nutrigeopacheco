@@ -1,5 +1,4 @@
-from .serializers import ProductSerializer, CategorySerializer, PromotionSerializer, PlaceSerializer
-from .models import Product, Category, Promotion, Place
+import json
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -9,29 +8,23 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
 from nutrigeopacheco.settings import EMAIL_SENDER_CONSULTA, EMAIL_OWNER
+from .serializers import ProductSerializer, CategorySerializer, PromotionSerializer, PlaceSerializer
+from .models import Product, Category, Promotion, Place
 
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'nutri/index.html')
-
-
 def contact(request):
     if request.method == 'POST':
-        name = request.POST.get('name', None)
-        email = request.POST.get('email', None)
-        tel = request.POST.get('tel', None)
-        message = request.POST.get('message', None)
-
-        check_send = send_contact_email(email, message, name, tel)
+        data = json.loads(request.body)
+        check_send = send_contact_email(**data)
 
         return JsonResponse({'success': check_send})
 
-    return render(request, 'nutri/contact.html')
+    return JsonResponse({'success': False}, status=400)
 
 
-def send_contact_email(email, message, name, tel=None):
+def send_contact_email(email=None, message=None, name=None, tel=None):
 
     if not all([email, message, name]):
         return False

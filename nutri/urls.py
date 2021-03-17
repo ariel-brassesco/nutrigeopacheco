@@ -3,8 +3,7 @@ from . import views
 
 app_name = 'nutri'
 urlpatterns = [
-    # path("", views.index, name="index"),
-    # path("contact", views.contact, name="contact"),
+    path("contact/", views.contact),
     path("place/", views.get_place),
     path("category/", views.get_category),
     path("promotion/", views.get_promotion),

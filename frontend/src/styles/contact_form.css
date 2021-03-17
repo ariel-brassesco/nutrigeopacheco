@@ -10,7 +10,7 @@
 
 .contact-info, .contact-form {
     max-width: 40%;
-    margin: 0.5rem;
+    margin: 1rem;
 }
 
 .contact-form {
@@ -61,7 +61,7 @@ input.valid-input ~ span.is-right, input.valid-input ~ p.help {
 @media screen and (max-width: 480px) {
     .main-contact-form {
         flex-flow: column nowrap;
-        justify-content: center;
+        justify-content: start;
         align-items: stretch;
         margin: auto;
     }

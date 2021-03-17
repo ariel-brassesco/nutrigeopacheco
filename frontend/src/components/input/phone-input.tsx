@@ -1,4 +1,4 @@
-import React, { FC, HTMLProps } from "react";
+import React, { FC, HTMLProps, ReactNode } from "react";
 import { useField } from "formik";
 
 // Import Components
@@ -7,26 +7,36 @@ import Phone from "./phone";
 interface Props extends HTMLProps<HTMLInputElement> {
   mask?: any;
   label?: string;
+  labelClass?: string;
+  iconLeft?: ReactNode;
+  iconRight?: ReactNode;
+  iconClass?: string;
 }
 
-export const PhoneInput: FC<Props> = ({ label, ...props }) => {
+export const PhoneInput: FC<Props> = ({
+  label,
+  labelClass,
+  iconLeft,
+  iconRight,
+  iconClass,
+  ...props
+}) => {
   const [field, meta] = useField(props as any);
 
   return (
     <div className="mb-2">
       {!!label && (
-        <label
-          className="block text-gray-700 text-sm font-semibold mb-2"
-          htmlFor={props.id ?? props.name}
-        >
+        <label className={labelClass} htmlFor={props.id ?? props.name}>
           {label}
         </label>
       )}
-      <Phone {...field} {...(props as any)} />
+      <div className={iconClass}>
+        <Phone {...field} {...(props as any)} />
+        {!!iconLeft && iconLeft}
+        {!!iconRight && iconRight}
+      </div>
       {meta.touched && meta.error ? (
-        <div className="text-red-500 font-semibold text-xs my-2">
-          {meta.error}
-        </div>
+        <p className="help is-danger">{meta.error}</p>
       ) : null}
     </div>
   );

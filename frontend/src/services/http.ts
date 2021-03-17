@@ -16,7 +16,7 @@ const handleError = async (error: Error & { response: AxiosResponse<any> }) => {
 
 export class Http {
   public constructor() {
-    axios.defaults.baseURL = "";
+    axios.defaults.baseURL = "api/";
     // const token = localStorage.getItem("token") ?? "";
     // this.setAuth(token);
   }
@@ -57,4 +57,5 @@ export const apiRoutes = {
   categories: "api/category/",
   promotions: "api/promotion/",
   place: "api/place/",
+  constact: "api/contact/",
 };
