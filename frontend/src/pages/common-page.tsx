@@ -8,12 +8,14 @@ import Footer from "../components/footer";
 import HomePage from "./home-page";
 import ContactPage from "./contact-page";
 import StorePage from "./store-page";
+import ServicesPage from "./services-page";
 // Import Routes
 import * as routes from "../routes";
 
 const CommonPage: FC = () => (
   <Page header={<Header />} footer={<Footer />}>
     <Switch>
+      <Route path={routes.SERVICES} component={ServicesPage} />
       <Route path={routes.STORE} component={StorePage} />
       <Route exact path={routes.CONTACT} component={ContactPage} />
       <Route path={routes.HOME} component={HomePage} />

@@ -2,10 +2,9 @@ import "./styles/main.css";
 import "@fortawesome/fontawesome-free/js/all";
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-// import HomePage from "./pages/home-page";
+
+// Import Components
 import CommonPage from "./pages/common-page";
-// import ContactPage from "./pages/contact-page";
-// import StorePage from "./pages/store-page";
 
 class App extends Component {
   render() {
@@ -13,8 +12,6 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" component={CommonPage} />
-          {/* <Route path="/tienda" component={StorePage} />
-          <Route exact path="/contacto" component={ContactPage} /> */}
           {/*<Route component={NotFound}/>*/}
         </Switch>
       </BrowserRouter>
