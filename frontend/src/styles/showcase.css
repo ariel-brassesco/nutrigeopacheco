@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
     gap: 20px;
+    padding-right: 10px;
 }
 
 .showcase-item {

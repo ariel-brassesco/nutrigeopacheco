@@ -1,4 +1,4 @@
 export interface Filter {
-  category?: string;
-  product?: string;
+  category: number | null;
+  product: string | null;
 }

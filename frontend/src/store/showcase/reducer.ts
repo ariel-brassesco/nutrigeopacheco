@@ -16,7 +16,7 @@ const initialState: State = {
   product: {},
   promotions: [],
   categories: [],
-  filter: {},
+  filter: { category: null, product: null },
 };
 
 export const showcaseReducer: Reducer<State> = (
@@ -29,7 +29,13 @@ export const showcaseReducer: Reducer<State> = (
         ...state,
         products: payload,
       };
+    case types.FETCH_CATEGORIES:
+      return {
+        ...state,
+        categories: payload,
+      };
     case types.SHOW_PRODUCT_DETAIL:
+    case types.CLEAR_PRODUCT_DETAIL:
       return {
         ...state,
         product: payload,

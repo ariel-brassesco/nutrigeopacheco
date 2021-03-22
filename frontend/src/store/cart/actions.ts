@@ -12,7 +12,7 @@ export const addCartItem = (item: Product) => (dispatch: Dispatch) =>
 export const removeCartItem = (item_id: string) => (dispatch: Dispatch) =>
   dispatch({
     type: types.REMOVE_CART_ITEM,
-    id: item_id,
+    payload: { id: item_id },
   });
 
 export const updateCartItem = (item: CartItem) => (dispatch: Dispatch) =>
@@ -26,8 +26,8 @@ export const emptyCart = () => (dispatch: Dispatch) =>
     type: types.EMPTY_CART,
   });
 
-export const showCart = (show) => (dispatch: Dispatch) =>
+export const showCart = (show: boolean) => (dispatch: Dispatch) =>
   dispatch({
     type: types.SHOW_CART,
-    show,
+    payload: { show },
   });

@@ -9,12 +9,17 @@ import HomePage from "./home-page";
 import ContactPage from "./contact-page";
 import StorePage from "./store-page";
 import ServicesPage from "./services-page";
+import CheckoutPage from "./checkout-page";
+import { PrivateRoute } from "../components/private-route";
 // Import Routes
 import * as routes from "../routes";
 
 const CommonPage: FC = () => (
   <Page header={<Header />} footer={<Footer />}>
     <Switch>
+      <PrivateRoute path={routes.CHECKOUT} redirect={routes.STORE}>
+        <CheckoutPage />
+      </PrivateRoute>
       <Route path={routes.SERVICES} component={ServicesPage} />
       <Route path={routes.STORE} component={StorePage} />
       <Route exact path={routes.CONTACT} component={ContactPage} />

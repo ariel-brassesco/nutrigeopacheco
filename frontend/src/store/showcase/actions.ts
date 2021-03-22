@@ -50,7 +50,13 @@ export const showProductDetail = (product: Product) => (dispatch: Dispatch) =>
     payload: product,
   });
 
-export const filterByCategory = (id: string) => (dispatch: Dispatch) =>
+export const clearProductDetail = () => (dispatch: Dispatch) =>
+  dispatch({
+    type: types.CLEAR_PRODUCT_DETAIL,
+    payload: {},
+  });
+
+export const filterByCategory = (id: number | null) => (dispatch: Dispatch) =>
   dispatch({
     type: types.FILTER_BY_CATEGORY,
     payload: {
