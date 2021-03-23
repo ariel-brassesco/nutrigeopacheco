@@ -166,7 +166,7 @@ const ServicesPage: FC = () => {
           <figure className="image is-5by4">
             <img
               className="services-image"
-              src="/static/images/consultorio.jpg"
+              src="/static/images/talleres-online.jpeg"
               alt="consultorio"
             />
           </figure>

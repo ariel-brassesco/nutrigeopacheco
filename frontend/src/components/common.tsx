@@ -47,3 +47,19 @@ export const GeneralAnnouncement: FC<{ text: string; className?: string }> = ({
     <p className={className}>{text}</p>
   </div>
 );
+
+export const BannerInfoCheckout: FC = () => (
+  <div className="banner-info-item banner-info-shipping">
+    <span className="icon banner-shipping-icon">
+      <i className="fas fa-2x fa-truck"></i>
+    </span>
+    <div className="banner-shipping-content">
+      <p className="banner-shipping-title">
+        ENVÍOS GRATIS A SANTA FE Y ALREDEDORES
+      </p>
+      <p className="banner-shipping-additional">
+        Consulta por costo de envío al resto del país.
+      </p>
+    </div>
+  </div>
+);

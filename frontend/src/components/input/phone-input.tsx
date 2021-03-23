@@ -24,7 +24,7 @@ export const PhoneInput: FC<Props> = ({
   const [field, meta] = useField(props as any);
 
   return (
-    <div className="mb-2">
+    <div className="field">
       {!!label && (
         <label className={labelClass} htmlFor={props.id ?? props.name}>
           {label}

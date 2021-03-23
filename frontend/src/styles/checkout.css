@@ -1,0 +1,4 @@
+input[name="payment_method"]:checked + label {
+  border: 1px solid cyan;
+  box-shadow: 0px 0px 5px cyan;
+}
