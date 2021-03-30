@@ -20,12 +20,14 @@ export const Cart: FC = () => {
   const handleShowCart = useCallback(() => {
     dispatch(showCart(!show));
   }, [dispatch, show]);
+
   const handleRemoveItem = useCallback(
     (item_id: string) => {
       dispatch(removeCartItem(item_id));
     },
     [dispatch]
   );
+
   const handleUpdateItem = useCallback(
     (item: CartItem) => {
       dispatch(updateCartItem(item));

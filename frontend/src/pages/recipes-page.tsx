@@ -1,25 +1,37 @@
-import React, { FC, useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React, { FC, useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // Import Components
-import { NoStockTag, PromoTag } from "./common-products";
-import { ImagesShower } from "./product-shower";
-import { AddToCartButton, QuantityWidget } from "../cart/common-cart";
+import { NoStockTag, PromoTag } from "../components/products/common-products";
+import { ImagesShower } from "../components/products/product-shower";
+import {
+  AddToCartButton,
+  QuantityWidget,
+} from "../components/cart/common-cart";
 // Import Actions
-import { clearProductDetail } from "../../store/showcase";
-import { addCartItem } from "../../store/cart";
-// import Types
-import { Product as ProductType } from "../../types";
+import { fetchProducts } from "../store/showcase";
+import { addCartItem } from "../store/cart";
+// Import Getters
+import { getProducts } from "../store/showcase";
+// Import Types
+import { Product } from "../types";
+// Import Routes
+import { CHECKOUT } from "../routes";
 
-type Props = {
-  data: ProductType;
-};
-
-export const ProductDetail: FC<Props> = ({ data }) => {
+const RecipesPage: FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const products = useSelector(getProducts);
+  const data = products.find((p) => p.id === 11);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   const [state, setState] = useState({
     quantity: 1,
-    max: data.stock,
+    max: data?.stock ?? 1,
   });
 
   const decrementQuantity = () => {
@@ -32,26 +44,23 @@ export const ProductDetail: FC<Props> = ({ data }) => {
     if (quantity < max) setState({ ...state, quantity: quantity + 1 });
   };
 
-  const goBackClick = useCallback(() => {
-    dispatch(clearProductDetail()); // Passing and empty object not render detail product
-  }, [dispatch]);
-
   const addToCart = useCallback(
-    (product: ProductType & { quantity: number }) => async () => {
+    (product: Product & { quantity: number }) => async () => {
       await dispatch(addCartItem(product));
-      goBackClick();
+      history.push(CHECKOUT);
     },
-    [dispatch, goBackClick]
+    [dispatch, history]
   );
+
   const promo =
-    data.promotions.length > 0 ? (
+    !!data && data.promotions?.length > 0 ? (
       <PromoTag
-        data={data.promotions[0]}
+        data={data?.promotions[0]}
         className="tag is-danger is-align-self-flex-start"
       />
     ) : null;
   let noStock;
-  if (!data.has_stock) {
+  if (!data?.has_stock) {
     noStock = <NoStockTag />;
   } else {
     noStock = [
@@ -64,20 +73,14 @@ export const ProductDetail: FC<Props> = ({ data }) => {
       />,
       <AddToCartButton
         key="addtocart"
-        title="AGREGAR AL CARRITO"
+        title="COMPRAR"
         onOk={addToCart({ ...data, quantity: state.quantity })}
       />,
     ];
   }
 
-  return (
-    <div className="product-detail">
-      <button
-        className="button is-small is-success product-detail__btn-back"
-        onClick={goBackClick}
-      >
-        <i className="fas fa-arrow-alt-circle-left"></i> VOLVER
-      </button>
+  return typeof data === "undefined" ? null : (
+    <div className="box product-detail">
       <ImagesShower images={data.images} />
       <div className="product-detail-info">
         <h2 className="product-detail-title">{data.title}</h2>
@@ -97,3 +100,5 @@ export const ProductDetail: FC<Props> = ({ data }) => {
     </div>
   );
 };
+
+export default RecipesPage;

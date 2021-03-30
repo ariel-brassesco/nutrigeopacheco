@@ -22,7 +22,7 @@ const ProductsView: FC = () => {
 
   return loading[FETCH_PRODUCTS] ? (
     <Loader
-      src="/statis/images/showcase-fruit-loader.gif"
+      src="static/images/showcase-fruit-loader.gif"
       className="main-loader"
     />
   ) : (
