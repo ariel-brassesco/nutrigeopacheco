@@ -138,11 +138,5 @@ STATICFILES_DIRS = [
 DEFAULT_FILE_STORAGE = ('django.core.files.storage.FileSystemStorage'
                         if DEBUG else 'gdstorage.storage.GoogleDriveStorage')
 
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "https://nutrigeopacheco.herokuapp.com",
-    "https://nutrigeopacheco.com",
-]
-
 # MERCADOPAGO
 MERCADOPAGO_ACCESS_TOKEN = os.getenv('MERCADOPAGO_ACCESS_TOKEN')

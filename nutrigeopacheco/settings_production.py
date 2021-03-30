@@ -52,4 +52,11 @@ EMAIL_ERROR_REPORT = os.getenv('EMAIL_ERROR_REPORT')
 EMAIL_OWNER = os.getenv('EMAIL_OWNER')
 MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_API_KEY')
 MAILGUN_SERVER_NAME = os.getenv('MAILGUN_DOMAIN')
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+# EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+CORS_ORIGIN_WHITELIST = [
+    "https://nutrigeopacheco.herokuapp.com",
+    "https://nutrigeopacheco.com",
+]
