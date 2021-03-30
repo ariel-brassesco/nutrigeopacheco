@@ -19,7 +19,7 @@ from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 
-from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
+from .settings import DEBUG
 from .views import index
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
 
 urlpatterns += staticfiles_urlpatterns()
 if DEBUG:
+    from .settings import MEDIA_ROOT, MEDIA_URL
     urlpatterns += static(MEDIA_URL,
                           document_root=MEDIA_ROOT)
 
