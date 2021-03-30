@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-// import { logout } from "../actions/dashboardActions";
 
 type Data = Record<string, any>;
 
@@ -7,7 +6,6 @@ const mapData = (result: AxiosResponse<any>) => result.data;
 
 const handleError = async (error: Error & { response: AxiosResponse<any> }) => {
   if (error.response.status === 401) {
-    // await store.dispatch(logout() as any);
     window.location.reload(true);
   }
 
@@ -16,18 +14,8 @@ const handleError = async (error: Error & { response: AxiosResponse<any> }) => {
 
 export class Http {
   public constructor() {
-    axios.defaults.baseURL = "api/";
-    // const token = localStorage.getItem("token") ?? "";
-    // this.setAuth(token);
+    axios.defaults.baseURL = "/";
   }
-
-  // public setAuth(token: string) {
-  //   if (token) {
-  //     axios.defaults.headers.common["authorization"] = `JWT ${token}`;
-  //   } else {
-  //     delete axios.defaults.headers.common["authorization"];
-  //   }
-  // }
 
   public get(path: string, options: AxiosRequestConfig = {}) {
     return axios.get(path, options).then(mapData).catch(handleError);
@@ -53,9 +41,12 @@ export class Http {
 export const http = new Http();
 
 export const apiRoutes = {
-  products: "api/products/",
-  categories: "api/category/",
-  promotions: "api/promotion/",
-  place: "api/place/",
-  constact: "api/contact/",
+  products: "/nutri/products/",
+  categories: "/nutri/category/",
+  promotions: "/nutri/promotion/",
+  place: "/nutri/place/",
+  contact: "/nutri/contact/",
+  payment: "/payment/pagar/",
+  payment_failure: "/payment/failure/",
+  payment_success: "/payment/success/",
 };

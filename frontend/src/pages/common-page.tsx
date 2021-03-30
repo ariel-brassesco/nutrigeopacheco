@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Switch, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 // Import Components
 import Page from "../components/page";
@@ -14,8 +15,13 @@ import { PrivateRoute } from "../components/private-route";
 // Import Routes
 import * as routes from "../routes";
 
+toast.configure({
+  autoClose: 5000,
+});
+
 const CommonPage: FC = () => (
   <Page header={<Header />} footer={<Footer />}>
+    <ToastContainer />
     <Switch>
       <PrivateRoute path={routes.CHECKOUT} redirect={routes.STORE}>
         <CheckoutPage />

@@ -47,7 +47,7 @@ const CartItem: FC<PropsItem> = ({ item, onUpdate, onRemove }) => {
           onDecrement={handleQuantity(quanMinus)}
         />
       </div>
-      <p className="cart-item-subtotal">{`$ ${subtotal}`}</p>
+      <p className="cart-item-subtotal">{`$${subtotal}`}</p>
       <span
         className="icon has-text-danger cart-remove-item"
         onClick={onRemove}

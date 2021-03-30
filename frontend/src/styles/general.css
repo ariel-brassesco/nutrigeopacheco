@@ -23,6 +23,12 @@ h2 {
     font-size: 2rem;
 }
 
+#app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 /* Background fruit image for header and footer with opacity 0.3*/
 .background-fruits--transparent::after {

@@ -8,7 +8,7 @@ type Props = {
 export const Page: FC<Props> = ({ header, children, footer }) => (
   <>
     {header && <>{header}</>}
-    <div>{children}</div>
+    {children}
     {footer && <>{footer}</>}
   </>
 );

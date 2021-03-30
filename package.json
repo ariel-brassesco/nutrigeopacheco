@@ -13,6 +13,9 @@
   "scripts": {
     "dev": "yarn workspace frontend dev",
     "build": "yarn workspace frontend build",
-    "lint": "yarn workspace frontend lint"
+    "lint": "yarn workspace frontend lint",
+    "server": "python manage.py runserver",
+    "migrations:make": "python manage.py makemigrations",
+    "static": "python manage.py collectstatic"
   }
 }

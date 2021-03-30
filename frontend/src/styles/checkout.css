@@ -2,3 +2,51 @@ input[name="payment_method"]:checked + label {
   border: 1px solid cyan;
   box-shadow: 0px 0px 5px cyan;
 }
+
+/*Discounts Items*/
+#discount-items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.discount-item {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.discount-item p {
+  padding: 10px;
+}
+
+.discount-item p:first-of-type {
+  background-color: hsl(141, 53%, 53%);
+  border-radius: 15px;
+  margin-right: 0.5em;
+}
+
+/* Failure and Success Payment*/
+
+.loader-checkout,
+.response-checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-checkout-content {
+  text-align: center;
+  margin-top: -50px;
+}
+
+.response-checkout-content {
+  text-align: center;
+}
+
+.response-checkout-image {
+  margin-top: 20vmin;
+  width: 10vmin;
+}

@@ -25,7 +25,7 @@ from .views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('payment/', include('payment.urls')),
-    path('api/', include('nutri.urls')),
+    path('nutri/', include('nutri.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -1,3 +1,13 @@
+/*Promotions Info*/
+.promotions-info {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  margin-bottom: 5px;
+  background-color: hsl(141, 53%, 53%);
+}
+
 .promo-gen {
     font-weight: bold;
     text-transform: capitalize;

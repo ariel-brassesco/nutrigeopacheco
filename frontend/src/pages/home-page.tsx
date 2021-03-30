@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 const HomePage: FC = () => (
-  <main className="px-3">
+  <main className="px-3 is-flex-grow-1">
     <figure className="image is-128x128 is-pulled-left m-2">
       <img src="/static/images/about.jpg" alt="" />
     </figure>

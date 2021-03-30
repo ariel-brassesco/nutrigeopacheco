@@ -1,7 +1,7 @@
-import React, { FC, useCallback } from "react";
+import React, { FC } from "react";
 import { Form, Formik } from "formik";
 
-// import { Modal, ModalProps } from "../modal";
+// import Components
 import { TextInput } from "../input/text-input";
 import { PhoneInput } from "../input/phone-input";
 import { ContactData, ContactSchema } from "../../types/contact";
@@ -13,14 +13,11 @@ type Props = {
 type Values = ContactData;
 
 export const ContactForm: FC<Props> = ({ onOk }) => {
-  const onSubmit = useCallback(
-    async (values: Values, { setSubmitting }) => {
-      setSubmitting(true);
-      await onOk?.(values);
-      setSubmitting(false);
-    },
-    [onOk]
-  );
+  const onSubmit = async (values: Values, { setSubmitting }) => {
+    setSubmitting(true);
+    await onOk?.(values);
+    setSubmitting(false);
+  };
 
   return (
     <Formik<Values>
@@ -104,7 +101,10 @@ export const ContactForm: FC<Props> = ({ onOk }) => {
               className={`button contact-form__button is-success ${
                 isSubmitting ? "is-loading" : ""
               }`}
-              onClick={submitForm}
+              onClick={(e) => {
+                e.preventDefault();
+                submitForm();
+              }}
               disabled={isSubmitting}
             >
               enviar

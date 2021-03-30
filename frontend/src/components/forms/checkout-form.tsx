@@ -1,5 +1,6 @@
 import React, { FC, useCallback } from "react";
 import { Form, Formik, Field } from "formik";
+import { Link } from "react-router-dom";
 
 // Import Components
 import { TextInput } from "../input/text-input";
@@ -7,8 +8,11 @@ import { PhoneInput } from "../input/phone-input";
 import { CheckoutData, CheckoutSchema } from "../../types";
 // Import Types
 import { Provinces, PaymentMethod } from "../../types";
+// Import Routes
+import * as route from "../../routes";
 
 type Props = {
+  applyPaymentDiscount?: (payment: string) => void;
   onOk?: (data: CheckoutData) => void;
 };
 
@@ -28,7 +32,7 @@ const initialValues = {
   payment_method: "" as PaymentMethod,
 };
 
-export const CheckoutForm: FC<Props> = ({ onOk }) => {
+export const CheckoutForm: FC<Props> = ({ applyPaymentDiscount, onOk }) => {
   const onSubmit = useCallback(
     async (values: Values, { setSubmitting }) => {
       setSubmitting(true);
@@ -45,8 +49,9 @@ export const CheckoutForm: FC<Props> = ({ onOk }) => {
       onSubmit={onSubmit}
       enableReinitialize
     >
-      {({ isSubmitting, submitForm, setFieldValue }) => (
-        <Form className="box mx-3">
+      {({ values, isSubmitting, submitForm, setFieldValue }) => (
+        <Form className="box mx-3 is-flex is-flex-direction-column">
+          {applyPaymentDiscount?.(values.payment_method)}
           <div>
             <p className="has-text-weight-bold is-size-4 mb-4">
               Datos Personales
@@ -66,7 +71,7 @@ export const CheckoutForm: FC<Props> = ({ onOk }) => {
                 }
               />
             </div>
-            <div className="is-flex">
+            <div className="is-flex is-flex-wrap-wrap">
               <div className="is-flex-grow-1 mx-2">
                 <TextInput
                   className="input valid-input"
@@ -113,7 +118,7 @@ export const CheckoutForm: FC<Props> = ({ onOk }) => {
             <p className="has-text-weight-bold is-size-4 my-4">
               Datos de Envío
             </p>
-            <div className="is-flex">
+            <div className="is-flex is-flex-wrap-wrap">
               <div className="mx-2">
                 <TextInput
                   className="input valid-input"
@@ -148,7 +153,7 @@ export const CheckoutForm: FC<Props> = ({ onOk }) => {
                 />
               </div>
             </div>
-            <div className="is-flex">
+            <div className="is-flex is-flex-wrap-wrap">
               <div className="mx-2">
                 <TextInput
                   className="input valid-input"
@@ -233,17 +238,26 @@ export const CheckoutForm: FC<Props> = ({ onOk }) => {
               </label>
             </div>
           </div>
-          <div className="buttons is-centered">
+          <div className="buttons mt-4 is-justify-content-space-around">
             <button
               type="submit"
-              className={`button is-large is-success ${
+              className={`button is-medium is-success has-text-weight-bold ${
                 isSubmitting ? "is-loading" : ""
               }`}
-              onClick={submitForm}
+              onClick={(e) => {
+                e.preventDefault();
+                submitForm();
+              }}
               disabled={isSubmitting}
             >
-              Pagar
+              PAGAR
             </button>
+            <Link
+              to={route.STORE}
+              className="button is-medium is-danger has-text-weight-bold"
+            >
+              CANCELAR
+            </Link>
           </div>
         </Form>
       )}

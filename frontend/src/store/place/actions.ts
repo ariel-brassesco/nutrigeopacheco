@@ -25,7 +25,7 @@ export const sendContact = (data: ContactData) => async (
   dispatch(startLoading(types.SEND_CONTACT));
 
   try {
-    const result = await http.post(apiRoutes.constact, data);
+    const result = await http.post(apiRoutes.contact, data);
 
     dispatch({ type: types.SEND_CONTACT, payload: result });
     dispatch(stopLoading(types.SEND_CONTACT));

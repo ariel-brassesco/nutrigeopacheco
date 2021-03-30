@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 
 // Import Components
@@ -11,12 +11,9 @@ import { ContactData } from "../types/contact";
 const ContactPage: FC = () => {
   const dispatch = useDispatch();
 
-  const handleContact = useCallback(
-    (data: ContactData) => {
-      dispatch(sendContact(data));
-    },
-    [dispatch]
-  );
+  const handleContact = async (data: ContactData) => {
+    await dispatch(sendContact(data));
+  };
   return (
     <div className="main-contact-form">
       <div className="box contact-info">
