@@ -6,6 +6,7 @@ ALLOWED_HOSTS = ['nutrigeopacheco.herokuapp.com', 'nutrigeopacheco.com']
 # Application definition
 INSTALLED_APPS = [
     'gdstorage',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -41,19 +42,25 @@ SECURE_HSTS_PRELOAD = True
 SESSION_SAVE_EVERY_REQUEST = True
 
 # EMAIL SETTINGS
+EMAIL_SENDER_CONSULTA = os.getenv('EMAIL_SENDER_CONSULTA')
+EMAIL_SENDER_COMPRAS = os.getenv('EMAIL_SENDER_COMPRAS')
+EMAIL_ERROR_REPORT = os.getenv('EMAIL_ERROR_REPORT')
+EMAIL_OWNER = os.getenv('EMAIL_OWNER')
+
 EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER')
 EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN')
 EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD')
 EMAIL_PORT = os.getenv('MAILGUN_SMTP_PORT')
 EMAIL_USE_TLS = True
-EMAIL_SENDER_CONSULTA = os.getenv('EMAIL_SENDER_CONSULTA')
-EMAIL_SENDER_COMPRAS = os.getenv('EMAIL_SENDER_COMPRAS')
-EMAIL_ERROR_REPORT = os.getenv('EMAIL_ERROR_REPORT')
-EMAIL_OWNER = os.getenv('EMAIL_OWNER')
-MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_API_KEY')
-MAILGUN_SERVER_NAME = os.getenv('MAILGUN_DOMAIN')
-# EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+MAILGUN_API_KEY = os.getenv('MAILGUN_API_KEY')
+MAILGUN_DOMAIN = os.getenv('MAILGUN_DOMAIN')
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+
+# Defaults email values
+DEFAULT_FROM_EMAIL = EMAIL_OWNER
+# ditto (default from-email for Django errors)
+SERVER_EMAIL = EMAIL_ERROR_REPORT
 
 
 CORS_ORIGIN_WHITELIST = [

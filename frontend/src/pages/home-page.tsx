@@ -5,7 +5,7 @@ import { deltaYears } from "../utils/date";
 
 const HomePage: FC = () => (
   <main className="px-3 is-flex-grow-1">
-    <div className="home-img is-pulled-left">
+    <div className="home-img is-pulled-left m-2">
       <figure className="image is-squared">
         <img src="/static/images/about.jpg" alt="" />
       </figure>

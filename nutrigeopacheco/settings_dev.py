@@ -30,6 +30,7 @@ EMAIL_ERROR_REPORT = os.getenv('EMAIL_ERROR_REPORT')
 EMAIL_OWNER = os.getenv('EMAIL_OWNER')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]

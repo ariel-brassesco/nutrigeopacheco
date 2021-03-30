@@ -68,7 +68,7 @@ export const ContactForm: FC<Props> = ({ onOk }) => {
           <PhoneInput
             className="input valid-input"
             label="Teléfono"
-            labelClass="label contact-label"
+            labelClass="label contact-label label-input-required"
             name="tel"
             placeholder="34215111111"
             iconClass="control has-icons-left has-icons-right"
