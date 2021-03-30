@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "noEmit": true,
+    "jsx": "react"
+  },
+  "include": ["src"]
+}

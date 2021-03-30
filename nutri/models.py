@@ -2,12 +2,14 @@ from django.db import models
 import uuid
 from datetime import datetime
 from django.utils.text import slugify
-from gdstorage.storage import GoogleDriveStorage
+# from gdstorage.storage import GoogleDriveStorage
 
 # Define Google Drive Storage
-gd_storage = GoogleDriveStorage()
+# gd_storage = GoogleDriveStorage()
 
 # Create your models here.
+
+
 class Promotion(models.Model):
     PROMO_TARGET = [
         ('product', 'product'),
@@ -23,7 +25,7 @@ class Promotion(models.Model):
         ('free', 'free'),
         ('code', 'code'),
     ]
-    
+
     target = models.CharField(choices=PROMO_TARGET, max_length=20)
     _type = models.CharField(choices=PROMO_TYPES, max_length=20)
     code = models.CharField(max_length=20)
@@ -33,6 +35,7 @@ class Promotion(models.Model):
     def __str__(self):
         return f'{self.target} ({self._type}): {self.code} ({self.is_active})'
 
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     is_active = models.BooleanField(default=True)
@@ -41,7 +44,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name.capitalize()
-    
+
     def slug(self):
         return slugify(self.name)
 
@@ -51,6 +54,7 @@ class Category(models.Model):
         '''
         self.name = self.name.lower()
         super(Category, self).save(*args, **kwargs)
+
 
 class Product(models.Model):
     '''
@@ -72,8 +76,10 @@ class Product(models.Model):
     price = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)
     new_enabled = models.BooleanField(default=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    promotions = models.ManyToManyField(Promotion, related_name='products', blank=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name='products')
+    promotions = models.ManyToManyField(
+        Promotion, related_name='products', blank=True)
 
     def check_available_stock(self, quantity):
         return (self.available_stock > 0) and (self.available_stock >= quantity)
@@ -92,7 +98,7 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.title}: {self.price}"
-    
+
     def is_new(self):
         '''
             Check if the product is new.
@@ -112,6 +118,7 @@ class Product(models.Model):
     def slug(self):
         return slugify(self.title)
 
+
 class ProductImages(models.Model):
 
     '''
@@ -129,13 +136,14 @@ class ProductImages(models.Model):
         avoid maliciuos actions.
     '''
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to="products/", storage=gd_storage)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to="products/")
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.image.url}"
-    
+
     def save(self, *args, **kwargs):
         '''
             Change the name of file to uuid.
@@ -143,15 +151,17 @@ class ProductImages(models.Model):
         # Get the file extension
         extension = '.' + self.image.name.split('.')[-1]
         # Change the name of image
-        self.image.name = '/'.join([str(self.product.id), str(uuid.uuid4().hex + extension)])
+        self.image.name = '/'.join([str(self.product.id),
+                                    str(uuid.uuid4().hex + extension)])
         super(ProductImages, self).save(*args, **kwargs)
+
 
 class Place(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     email = models.EmailField()
     phone_number = models.CharField(max_length=25)
-    logo = models.ImageField(upload_to='owner/%Y/%m/%d', storage=gd_storage)
+    logo = models.ImageField(upload_to='owner/%Y/%m/%d')
     instagram = models.URLField()
     whatsapp = models.URLField()
     cbu = models.CharField(max_length=30)
@@ -165,4 +175,3 @@ class Place(models.Model):
 
     def get_phone(self):
         return f'+{self.phone_number}'
-

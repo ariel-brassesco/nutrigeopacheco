@@ -1,0 +1,18 @@
+@import "~bulma/css/bulma.css";
+@import "~react-toastify/dist/ReactToastify.css";
+
+@import "./normalize.css";
+@import "./general.css";
+@import "./contact_form.css";
+@import "./header.css";
+@import "./footer.css";
+@import "./loaders.css";
+@import "./mainpage.css";
+@import "./shipping_info.css";
+@import "./promotions.css";
+@import "./cart.css";
+@import "./filters.css";
+@import "./showcase.css";
+@import "./services.css";
+@import "./checkout.css";
+@import "./toast.css";

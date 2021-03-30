@@ -15,29 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
-from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
-#from .settings import LETSENCRYPT_URL, LETSENCRYPT_RESPONSE
 
+from .settings import MEDIA_ROOT, MEDIA_URL, DEBUG
+from .views import index
 
 urlpatterns = [
-    path('', include('nutri.urls')),
-    path('tienda/', include('frontend.urls')),
-    path('payment/', include('payment.urls')),
     path('admin/', admin.site.urls),
+    path('payment/', include('payment.urls')),
+    path('nutri/', include('nutri.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
-
 if DEBUG:
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+    urlpatterns += static(MEDIA_URL,
+                          document_root=MEDIA_ROOT)
 
-#if LETSENCRYPT_URL:
-#    from django.http import HttpResponse
-#    urlpatterns += [
-#        path(
-#            LETSENCRYPT_URL,
-#            lambda r: HttpResponse(LETSENCRYPT_RESPONSE, content_type='text/plain'),
-#        ),
-#    ]
+urlpatterns += [url(r"^.*", index, name="index"), ]

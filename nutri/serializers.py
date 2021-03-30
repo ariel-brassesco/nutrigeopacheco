@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, RelatedField, StringRelatedField, SlugRelatedField, PrimaryKeyRelatedField
-from .models import Product, ProductImages, Category, Promotion
+from .models import Product, Category, Promotion, Place
 
 
 class ExtraFieldsSerializer(ModelSerializer):
@@ -7,13 +7,16 @@ class ExtraFieldsSerializer(ModelSerializer):
      This class override th get_field_names to add extra field defined in Meta class
      as extra_fields
     '''
+
     def get_field_names(self, declared_fields, info):
-        expanded_fields = super(ExtraFieldsSerializer, self).get_field_names(declared_fields, info)
+        expanded_fields = super(ExtraFieldsSerializer,
+                                self).get_field_names(declared_fields, info)
 
         if getattr(self.Meta, 'extra_fields', None):
             return expanded_fields + self.Meta.extra_fields
         else:
             return expanded_fields
+
 
 class CategorySerializer(ExtraFieldsSerializer):
     '''
@@ -26,6 +29,7 @@ class CategorySerializer(ExtraFieldsSerializer):
             'slug'
         ]
 
+
 class PromotionSerializer(ModelSerializer):
     '''
     Serializer of Promotion Class.
@@ -35,12 +39,24 @@ class PromotionSerializer(ModelSerializer):
         model = Promotion
         fields = '__all__'
 
+
 class ProductImagesSerializer(RelatedField):
     '''
         Serialize only the url of each image.
     '''
+
     def to_representation(self, value):
         return value.image.url
+
+
+class ImagesSerializer(RelatedField):
+    '''
+        Serialize only the url of each image.
+    '''
+
+    def to_representation(self, value):
+        return value.url
+
 
 class ProductSerializer(ExtraFieldsSerializer):
     '''
@@ -49,7 +65,7 @@ class ProductSerializer(ExtraFieldsSerializer):
     images = ProductImagesSerializer(many=True, read_only=True)
     category = CategorySerializer(read_only=True)
     promotions = PromotionSerializer(many=True, read_only=True)
-    
+
     class Meta:
         model = Product
         fields = '__all__'
@@ -58,3 +74,17 @@ class ProductSerializer(ExtraFieldsSerializer):
             'is_new',
             'slug'
         ]
+
+
+class PlaceSerializer(ExtraFieldsSerializer):
+    logo = ImagesSerializer(read_only=True)
+
+    class Meta:
+        model = Place
+        fields = ('name',
+                  'surname',
+                  'email',
+                  'phone_number',
+                  'logo',
+                  'instagram',
+                  'whatsapp')

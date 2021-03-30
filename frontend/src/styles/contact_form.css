@@ -1,0 +1,77 @@
+.main-contact-form {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    margin: 3rem auto;
+    width: 100vw;
+}
+
+.contact-info, .contact-form {
+    max-width: 40%;
+    margin: 1rem;
+}
+
+.contact-form {
+    flex-basis: 50%;
+}
+
+.contact-label, .contact-form__button {
+    text-transform: uppercase;
+}
+
+.contact-label {
+    color: #666;
+}
+
+.contact-form__button {
+    color: white;
+    background-color: #666;
+}
+
+.contact-form__button:active {
+    scale: 0.9;
+}
+
+.contact-message {
+    resize: none;
+    height: 100px;
+}
+
+.contact-info-title {
+    font-size: 2rem;
+    font-family: 'Caveat', 'Dancing Script', 'Chewy', cursive;
+    font-weight: bold;
+}
+
+.contact-info__title, .contact-info__content {
+    color: gray;
+    font-size: 1rem;
+}
+
+.contact-info__content{
+    font-weight: normal;
+}
+
+input.valid-input ~ span.is-right, input.valid-input ~ p.help {
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+    .main-contact-form {
+        flex-flow: column nowrap;
+        justify-content: start;
+        align-items: stretch;
+        margin: auto;
+    }
+
+    .contact-info, .contact-form {
+        max-width: 100vw;
+    }
+
+    .contact-info {
+        text-align: center;
+    }
+
+}
