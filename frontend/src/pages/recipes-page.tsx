@@ -23,7 +23,7 @@ const RecipesPage: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const products = useSelector(getProducts);
-  const data = products.find((p) => p.id === 11);
+  const data = products.find((p) => p.id === 1);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -80,24 +80,27 @@ const RecipesPage: FC = () => {
   }
 
   return typeof data === "undefined" ? null : (
-    <div className="box product-detail">
-      <ImagesShower images={data.images} />
-      <div className="product-detail-info">
-        <h2 className="product-detail-title">{data.title}</h2>
-        <div className="product-detail-description">
-          {data.description.split("\n").map((line, idx) => {
-            return <p key={idx}>{line}</p>;
-          })}
-          {/*Split the description by \n and put in a different <p> */}
-        </div>
-        <p className="product-detail-price">
-          $ {data.price} {promo}
-        </p>
+    <>
+      <div className="box product-detail">
+        <ImagesShower images={data.images} />
+        <div className="product-detail-info">
+          <h2 className="product-detail-title">{data.title}</h2>
+          <div className="product-detail-description">
+            {data.description.split("\n").map((line, idx) => {
+              return <p key={idx}>{line}</p>;
+            })}
+            {/*Split the description by \n and put in a different <p> */}
+          </div>
+          <p className="product-detail-price">
+            $ {data.price} {promo}
+          </p>
 
-        <hr />
-        {noStock}
+          <hr />
+          {noStock}
+        </div>
       </div>
-    </div>
+      <div className="is-flex-grow-1" />
+    </>
   );
 };
 

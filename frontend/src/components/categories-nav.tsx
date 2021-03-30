@@ -31,28 +31,34 @@ const CategoriesNav: FC = () => {
 
   if (error[FETCH_CATEGORIES]) return <p>Could not load the categories.</p>;
 
-  return loading[FETCH_CATEGORIES] ? (
-    <Loader
-      src="static/images/filters-fruit-loader.gif"
-      className="main-loader"
-    />
-  ) : (
+  return (
     <aside className="menu filters">
-      <SearchProduct filterBy={searchByProduct} />
-      <NavigationMenu nameNav="categorías" nameActive={true}>
-        {categories.map((cat) => {
-          let activated =
-            cat.id === filters.category ? "is-active category-item-active" : "";
-          return (
-            <Category
-              key={cat.id}
-              {...cat}
-              onFilter={searchByCategory}
-              activated={activated}
-            />
-          );
-        })}
-      </NavigationMenu>
+      {loading[FETCH_CATEGORIES] ? (
+        <Loader
+          src="static/images/filters-fruit-loader.gif"
+          className="main-loader"
+        />
+      ) : (
+        <>
+          <SearchProduct filterBy={searchByProduct} />
+          <NavigationMenu nameNav="categorías" nameActive={true}>
+            {categories.map((cat) => {
+              let activated =
+                cat.id === filters.category
+                  ? "is-active category-item-active"
+                  : "";
+              return (
+                <Category
+                  key={cat.id}
+                  {...cat}
+                  onFilter={searchByCategory}
+                  activated={activated}
+                />
+              );
+            })}
+          </NavigationMenu>
+        </>
+      )}
     </aside>
   );
 };

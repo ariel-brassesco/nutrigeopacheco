@@ -45,6 +45,12 @@ h2 {
     opacity: 0.3;
 }
 
+.home-img {
+    display: inline-flex;
+    width: 20rem;
+    height: 16rem;
+}
+
 /* Class for add and asterics for requiered inputs*/
 .label-input-required::after {
     content: '*';

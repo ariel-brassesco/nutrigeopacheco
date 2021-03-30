@@ -20,14 +20,14 @@ const ProductsView: FC = () => {
 
   if (error[FETCH_PRODUCTS]) return <p>Could not load the products.</p>;
 
-  return loading[FETCH_PRODUCTS] ? (
-    <Loader
-      src="static/images/showcase-fruit-loader.gif"
-      className="main-loader"
-    />
-  ) : (
+  return (
     <div className="showcase">
-      {Object.keys(product).length !== 0 ? ( // Check the object is not empty
+      {loading[FETCH_PRODUCTS] ? (
+        <Loader
+          src="static/images/showcase-fruit-loader.gif"
+          className="main-loader"
+        />
+      ) : Object.keys(product).length !== 0 ? ( // Check the object is not empty
         <ProductDetail data={product as Product} />
       ) : (
         <ProductList products={products} />

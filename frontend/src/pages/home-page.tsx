@@ -1,25 +1,32 @@
 import React, { FC } from "react";
 
+// Import Utils
+import { deltaYears } from "../utils/date";
+
 const HomePage: FC = () => (
   <main className="px-3 is-flex-grow-1">
-    <figure className="image is-128x128 is-pulled-left m-2">
-      <img src="/static/images/about.jpg" alt="" />
-    </figure>
+    <div className="home-img is-pulled-left">
+      <figure className="image is-squared">
+        <img src="/static/images/about.jpg" alt="" />
+      </figure>
+    </div>
     <div className="has-text-justified">
       <div className="block">
         Hola! Me llamo Georgina y soy Nutricionista, nacida en Santa Fe.
       </div>
       <div className="block">
-        Tengo un hijo de 2 años que se llama Bauti, él es el amor de mi vida. Lo
-        van a ver mucho por acá, pues mamá full time. Él me acompaña, prueba
-        todas las recetas y le encantan las frutas. Fiel hijo de nutricionista,
-        vamos atravesando juntos la aventura de comer rico y sano.
+        Tengo un hijo de {deltaYears(2017)} años que se llama Bauti, él es el
+        amor de mi vida. Lo van a ver mucho por acá, pues mamá full time. Él me
+        acompaña, prueba todas las recetas y le encantan las frutas. Fiel hijo
+        de nutricionista, vamos atravesando juntos la aventura de comer rico y
+        sano.
       </div>
       <div className="block">
-        A lo largo de los años me fui especializando en Nutrición Clínica en
-        Adultos a través de diversas experiencias laborales y capacitaciones. No
-        hubo año que no haya hecho un curso, jornada, postgrado, maestría,
-        diplomatura. Soy muy inquieta y amo lo que hago, siempre voy por más.
+        A lo largo de estos {deltaYears(2011)} años me fui especializando en
+        Nutrición Clínica en Adultos a través de diversas experiencias laborales
+        y capacitaciones. No hubo año que no haya hecho un curso, jornada,
+        postgrado, maestría, diplomatura. Soy muy inquieta y amo lo que hago,
+        siempre voy por más.
       </div>
       <div className="block">
         En estos 9 años que llevo ejerciendo, comprobé que una mala alimentación
