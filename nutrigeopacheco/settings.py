@@ -24,7 +24,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get("DEBUG", "") == "true"
-DEBUG = True
+DEBUG = False
 # Import development settings or production settings
 if DEBUG:
     from .settings_dev import *
